@@ -4,21 +4,22 @@ import java.util.ArrayList;
 
 public class Player {
 
-    private String playerTag;
     private String username;
     private String email;
+    private String firstName;
+    private String lastName;
     private String password;
-    private Player listOfFollowers;
-    private Player listOfFollowing;
+    private ArrayList<Player> listOfFollowers;
+    private ArrayList<Player> listOfFollowing;
     private float balance;
     private Profile profile;
     private ArrayList<PaymentMethod> paymentMethods;
 
-
-    public Player(String playerTag, String username, String email, String password, Player listOfFollowers, Player listOfFollowing, float balance, Profile profile, ArrayList<PaymentMethod> paymentMethods) {
-        this.playerTag = playerTag;
+    public Player(String username, String email, String firstName, String lastName, String password, ArrayList<Player> listOfFollowers, ArrayList<Player> listOfFollowing, float balance, Profile profile, ArrayList<PaymentMethod> paymentMethods) {
         this.username = username;
         this.email = email;
+        this.firstName = firstName;
+        this.lastName = lastName;
         this.password = password;
         this.listOfFollowers = listOfFollowers;
         this.listOfFollowing = listOfFollowing;
@@ -27,17 +28,15 @@ public class Player {
         this.paymentMethods = paymentMethods;
     }
 
-
     public Player() {
+        balance = 0;
+        paymentMethods = new ArrayList<PaymentMethod>();
+        listOfFollowers = new ArrayList<Player>();
+        listOfFollowing = new ArrayList<Player>();
+        profile = new Profile();
+        email = "";
     }
 
-    public String getPlayerTag() {
-        return playerTag;
-    }
-
-    public void setPlayerTag(String playerTag) {
-        this.playerTag = playerTag;
-    }
 
     public String getUsername() {
         return username;
@@ -47,12 +46,28 @@ public class Player {
         this.username = username;
     }
 
-    public String getEmail() {
+    public String getEmail(){
         return email;
     }
 
-    public void setEmail(String email) {
+    public void setEmail(String email){
         this.email = email;
+    }
+
+    public String getFirstName() {
+        return firstName;
+    }
+
+    public void setFirstName(String firstName) {
+        this.firstName = firstName;
+    }
+
+    public String getLastName() {
+        return lastName;
+    }
+
+    public void setLastName(String lastName) {
+        this.lastName = lastName;
     }
 
     public String getPassword() {
@@ -63,19 +78,19 @@ public class Player {
         this.password = password;
     }
 
-    public Player getListOfFollowers() {
+    public ArrayList<Player> getListOfFollowers() {
         return listOfFollowers;
     }
 
-    public void setListOfFollowers(Player listOfFollowers) {
+    public void setListOfFollowers(ArrayList<Player> listOfFollowers) {
         this.listOfFollowers = listOfFollowers;
     }
 
-    public Player getListOfFollowing() {
+    public ArrayList<Player> getListOfFollowing() {
         return listOfFollowing;
     }
 
-    public void setListOfFollowing(Player listOfFollowing) {
+    public void setListOfFollowing(ArrayList<Player> listOfFollowing) {
         this.listOfFollowing = listOfFollowing;
     }
 
@@ -87,11 +102,11 @@ public class Player {
         this.balance = balance;
     }
 
-    public Profile getProfile(){
+    public Profile getProfile() {
         return profile;
     }
 
-    public void setProfile(Profile profile){
+    public void setProfile(Profile profile) {
         this.profile = profile;
     }
 
@@ -106,9 +121,10 @@ public class Player {
     @Override
     public String toString() {
         return "Player{" +
-                "playerTag='" + playerTag + '\'' +
-                ", username='" + username + '\'' +
+                "username='" + username + '\'' +
                 ", email='" + email + '\'' +
+                ", firstName='" + firstName + '\'' +
+                ", lastName='" + lastName + '\'' +
                 ", password='" + password + '\'' +
                 ", listOfFollowers=" + listOfFollowers +
                 ", listOfFollowing=" + listOfFollowing +

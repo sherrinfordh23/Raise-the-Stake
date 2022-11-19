@@ -26,11 +26,11 @@
             tools:srcCompat="@tools:sample/avatars" />
 
         <TextView
-            android:id="@+id/textViewSignIn"
+            android:id="@+id/textViewBack"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:text="Sign Up" />
+            android:text="Back" />
 
     </LinearLayout>
 
@@ -91,13 +91,13 @@
             android:minHeight="48dp" />
 
         <EditText
-            android:id="@+id/editTextEmail"
+            android:id="@+id/editTextUsername"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="10dp"
             android:layout_marginBottom="10dp"
             android:ems="10"
-            android:hint="Email or Username..."
+            android:hint="Username..."
             android:inputType="textPersonName"
             android:minHeight="48dp" />
 

@@ -11,6 +11,8 @@ public class Profile {
     }
 
     public Profile() {
+        this.level = 0;
+        this.gamesPlayed = 0;
     }
 
     public int getLevel() {
