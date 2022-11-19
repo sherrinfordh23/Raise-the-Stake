@@ -99,7 +99,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="Forget Password?"
-            android:background="background:@null"
+            android:background="@android:color/transparent"
             android:textColor="#696969"
             android:textAllCaps="false"
             android:layout_marginVertical="20dp"
@@ -110,7 +110,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="Sign Up"
-            android:background="background:@null"
+            android:background="@android:color/transparent"
             android:textColor="#696969"
             android:textAllCaps="false"
             />

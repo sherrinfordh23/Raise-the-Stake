@@ -191,7 +191,7 @@
             app:srcCompat="@drawable/ic_baseline_home_24"
             tools:ignore="TouchTargetSizeCheck"
             android:layout_weight="1"
-            android:background="background:@null"
+            android:background="@android:color/transparent"
             />
 
         <Space
@@ -207,7 +207,7 @@
             app:srcCompat="@drawable/ic_baseline_search_24"
             tools:ignore="TouchTargetSizeCheck"
             android:layout_weight="1"
-            android:background="background:@null"/>
+            android:background="@android:color/transparent"/>
 
 
         <Space
@@ -221,7 +221,7 @@
             app:srcCompat="@drawable/ic_baseline_person_24"
             tools:ignore="TouchTargetSizeCheck"
             android:layout_weight="1"
-            android:background="background:@null"/>
+            android:background="@android:color/transparent"/>
     </LinearLayout>
 
 
