@@ -61,8 +61,24 @@ public class Signup extends AppCompatActivity implements View.OnClickListener, V
     }
 
     private void createUser() {
-        String emailOrUsername = edUsername.getText().toString();
-        players.child(emailOrUsername).addListenerForSingleValueEvent(this);
+
+
+        if(edUsername.getText().toString().equals("") ||
+                edFirstName.getText().toString().equals("") ||
+                edLastName.getText().toString().equals("") ||
+                edPassword.getText().toString().equals("") ||
+                edConfirmPassword.getText().toString().equals("")
+        )
+            Toast.makeText(this, "One or more fields are empty", Toast.LENGTH_SHORT).show();
+        else{
+            String emailOrUsername = edUsername.getText().toString();
+            players.child(emailOrUsername).addListenerForSingleValueEvent(this);
+        }
+
+
+
+
+
 
     }
 

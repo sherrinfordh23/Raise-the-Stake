@@ -49,11 +49,11 @@
         android:layout_marginLeft="20dp">
 
         <EditText
-            android:id="@+id/editTextEmail"
+            android:id="@+id/editTextUsername"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:ems="10"
-            android:hint="Email or Username..."
+            android:hint="Username..."
             android:inputType="textPersonName"
             android:minHeight="48dp" />
 
