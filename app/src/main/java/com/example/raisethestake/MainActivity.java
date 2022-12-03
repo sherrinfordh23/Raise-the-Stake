@@ -5,6 +5,7 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.os.Parcelable;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -41,6 +42,9 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         btnSignup.setOnClickListener(this);
         btnSignin = findViewById(R.id.buttonSignIn);
         btnSignin.setOnClickListener(this);
+
+        edUsername.setText("blogitthefrog");
+        edPassword.setText("thanh123");
     }
 
     @Override
@@ -80,8 +84,8 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             Player playerFound = snapshot.getValue(Player.class);
             if(playerFound.getPassword().equals(edPassword.getText().toString()))
             {
-                Intent i = new Intent(this, Home.class);
-                i.putExtra("username", playerFound.getUsername());
+                Intent i = new Intent(this, Deposit.class);
+                i.putExtra("currentPlayer", playerFound);
                 startActivity(i);
             }
             else
