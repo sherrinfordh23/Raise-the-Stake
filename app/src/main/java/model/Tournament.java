@@ -1,17 +1,19 @@
 package model;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 
 public class Tournament {
 
     private String game;
     private String gameMode;
     private String device;
-    private String listOfPlayers;
+    private ArrayList<Player> listOfPlayers;
     private float prize;
     private ArrayList<Match> listOfMatches;
 
-    public Tournament(String game, String gameMode, String device, String listOfPlayers, float prize, ArrayList<Match> listOfMatches) {
+
+    public Tournament(String game, String gameMode, String device, ArrayList<Player> listOfPlayers, float prize, ArrayList<Match> listOfMatches) {
         this.game = game;
         this.gameMode = gameMode;
         this.device = device;
@@ -48,20 +50,20 @@ public class Tournament {
         this.device = device;
     }
 
-    public String getListOfPlayers() {
-        return listOfPlayers;
-    }
-
-    public void setListOfPlayers(String listOfPlayers) {
-        this.listOfPlayers = listOfPlayers;
-    }
-
     public float getPrize() {
         return prize;
     }
 
     public void setPrize(float prize) {
         this.prize = prize;
+    }
+
+    public ArrayList<Player> getListOfPlayers() {
+        return listOfPlayers;
+    }
+
+    public void setListOfPlayers(ArrayList<Player> listOfPlayers) {
+        this.listOfPlayers = listOfPlayers;
     }
 
     public ArrayList<Match> getListOfMatches() {
@@ -72,13 +74,14 @@ public class Tournament {
         this.listOfMatches = listOfMatches;
     }
 
+
     @Override
     public String toString() {
         return "Tournament{" +
                 "game='" + game + '\'' +
                 ", gameMode='" + gameMode + '\'' +
                 ", device='" + device + '\'' +
-                ", listOfPlayers='" + listOfPlayers + '\'' +
+                ", listOfPlayers=" + listOfPlayers +
                 ", prize=" + prize +
                 ", listOfMatches=" + listOfMatches +
                 '}';
