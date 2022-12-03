@@ -21,7 +21,7 @@ import com.google.firebase.database.ValueEventListener;
 
 import model.Player;
 
-public class Deposit extends AppCompatActivity implements View.OnClickListener, ValueEventListener, TextWatcher {
+public class Deposit extends AppCompatActivity implements View.OnClickListener, TextWatcher {
 
     RadioButton rb10, rb25, rb50, rbCreditDebit;
     EditText edAmount;
@@ -97,6 +97,7 @@ public class Deposit extends AppCompatActivity implements View.OnClickListener, 
             catch (Exception e)
             {
                 Toast.makeText(this, "Please select or enter an amount", Toast.LENGTH_SHORT).show();
+                return;
             }
         }
 
@@ -108,17 +109,11 @@ public class Deposit extends AppCompatActivity implements View.OnClickListener, 
             amount = 50f;
 
         if (!rbCreditDebit.isChecked())
+        {
             Toast.makeText(this, "Please select a payment method", Toast.LENGTH_SHORT).show();
+            return;
+        }
 
-        players.child(currentPlayer.getUsername()).addListenerForSingleValueEvent(this);
-
-
-    }
-
-
-    @Override
-    public void onDataChange(@NonNull DataSnapshot snapshot) {
-        currentPlayer = snapshot.getValue(Player.class);
         currentPlayer.setBalance(currentPlayer.getBalance() + amount);
 
         players.child(currentPlayer.getUsername()).setValue(currentPlayer);
@@ -128,12 +123,11 @@ public class Deposit extends AppCompatActivity implements View.OnClickListener, 
         rb50.setChecked(false);
         rbCreditDebit.setChecked(false);
         edAmount.setText(null);
-    }
 
-    @Override
-    public void onCancelled(@NonNull DatabaseError error) {
 
     }
+
+
 
     @Override
     public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
