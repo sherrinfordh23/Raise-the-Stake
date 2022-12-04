@@ -8,13 +8,13 @@ public class Tournament {
     private String game;
     private String gameMode;
     private String device;
-    private ArrayList<Player> listOfPlayers;
+    private ArrayList<String> listOfPlayers;
     private float prize = 50;
-    private ArrayList<Match> listOfMatches;
+    private ArrayList<String> listOfMatches;
     private int numOfPlayers = 16;
 
 
-    public Tournament(String game, String gameMode, String device, ArrayList<Player> listOfPlayers, float prize, ArrayList<Match> listOfMatches) {
+    public Tournament(String game, String gameMode, String device, ArrayList<String> listOfPlayers, float prize, ArrayList<String> listOfMatches) {
         this.game = game;
         this.gameMode = gameMode;
         this.device = device;
@@ -24,8 +24,8 @@ public class Tournament {
     }
 
     public Tournament(){
-        listOfPlayers = new ArrayList<Player>();
-        listOfMatches = new ArrayList<Match>();
+        listOfPlayers = new ArrayList<String>();
+        listOfMatches = new ArrayList<String>();
     }
 
     public String getGame() {
@@ -60,19 +60,19 @@ public class Tournament {
         this.prize = prize;
     }
 
-    public ArrayList<Player> getListOfPlayers() {
+    public ArrayList<String> getListOfPlayers() {
         return listOfPlayers;
     }
 
-    public void setListOfPlayers(ArrayList<Player> listOfPlayers) {
+    public void setListOfPlayers(ArrayList<String> listOfPlayers) {
         this.listOfPlayers = listOfPlayers;
     }
 
-    public ArrayList<Match> getListOfMatches() {
+    public ArrayList<String> getListOfMatches() {
         return listOfMatches;
     }
 
-    public void setListOfMatches(ArrayList<Match> listOfMatches) {
+    public void setListOfMatches(ArrayList<String> listOfMatches) {
         this.listOfMatches = listOfMatches;
     }
 
