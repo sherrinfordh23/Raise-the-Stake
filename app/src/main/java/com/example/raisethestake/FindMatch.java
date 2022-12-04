@@ -1,5 +1,6 @@
 package com.example.raisethestake;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.os.Bundle;
@@ -11,10 +12,18 @@ import android.widget.RadioGroup;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
+
+import java.util.UUID;
+
 import model.Match;
 import model.Player;
 
-public class FindMatch extends AppCompatActivity implements View.OnClickListener {
+public class FindMatch extends AppCompatActivity implements View.OnClickListener, ValueEventListener {
 
     TextView tvGame, tvBalance;
     EditText edAmount;
@@ -23,6 +32,11 @@ public class FindMatch extends AppCompatActivity implements View.OnClickListener
     RadioButton rbPS5, rbXbox, rbMyTeam, rbQuickMatch;
 
     Player currentPlayer;
+
+    FirebaseDatabase root = FirebaseDatabase.getInstance();
+    DatabaseReference matches = root.getReference("Matches");
+
+    String newMatchId;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -61,19 +75,54 @@ public class FindMatch extends AppCompatActivity implements View.OnClickListener
         switch (id)
         {
             case R.id.btnFindMatch:
-                checkBalance(view);
+                createMatch(view);
                 break;
         }
     }
 
-    private void checkBalance(View view)
+    private void createMatch(View view)
     {
         if (currentPlayer.getBalance() < Float.valueOf(edAmount.getText().toString()))
         {
             Toast.makeText(this, "Insufficient Funds!", Toast.LENGTH_LONG).show();
         }
         else {
-            Match match = new Match();
+            newMatchId = UUID.randomUUID().toString();
+            matches.child(newMatchId).addListenerForSingleValueEvent(this);
         }
+    }
+
+    @Override
+    public void onDataChange(@NonNull DataSnapshot snapshot)
+    {
+        if(!snapshot.exists()) {
+            try {
+                String game = tvGame.getText().toString();
+
+                // selected GameMode
+                int selectedGameModeId = rgGameMode.getCheckedRadioButtonId();
+                RadioButton selectedGameMode = (RadioButton)findViewById(selectedGameModeId);
+                String gameMode = selectedGameMode.getText().toString();
+
+                // selected Device
+                int selectedDeviceId = rgDevice.getCheckedRadioButtonId();
+                RadioButton selectedDevice = (RadioButton)findViewById(selectedDeviceId);
+                String device = selectedGameMode.getText().toString();
+
+                Float amount = Float.valueOf(edAmount.getText().toString());
+                Player player1 = currentPlayer;
+
+                Match newMatch = new Match(newMatchId, game, gameMode, device, amount, player1);
+                matches.child(newMatchId).setValue(newMatch);
+            }
+            catch (Exception e) {
+                Toast.makeText(this, e.getMessage(), Toast.LENGTH_LONG).show();
+            }
+        }
+    }
+
+    @Override
+    public void onCancelled(@NonNull DatabaseError error) {
+
     }
 }
