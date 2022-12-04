@@ -61,7 +61,7 @@ public class Home extends AppCompatActivity implements ChildEventListener {
         tournament.setGame(snapshot.child("game").getValue().toString());
         tournament.setGameMode(snapshot.child("gameMode").getValue().toString());
         tournament.setPrize(Float.valueOf(snapshot.child("prize").getValue().toString()));
-        tournament.setListOfPlayers((ArrayList<Player>) snapshot.child("listOfPlayers").getValue());
+        tournament.setListOfPlayers((ArrayList<String>) snapshot.child("listOfPlayers").getValue());
 
         listOfTournaments.add(tournament);
     }
