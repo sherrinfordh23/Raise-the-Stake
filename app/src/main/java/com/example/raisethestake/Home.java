@@ -11,6 +11,7 @@ import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ListView;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.google.firebase.database.ChildEventListener;
@@ -30,6 +31,7 @@ public class Home extends AppCompatActivity implements ChildEventListener, View.
 
     ListView lvTournaments;
     Button btnFindMatch;
+    TextView tvUsername, tvBalance;
 
     FirebaseDatabase root = FirebaseDatabase.getInstance();
     DatabaseReference tournaments = root.getReference("Tournaments");
@@ -50,6 +52,11 @@ public class Home extends AppCompatActivity implements ChildEventListener, View.
     {
         currentPlayer = (Player) getIntent().getExtras().getSerializable("currentPlayer");
 
+        tvBalance = findViewById(R.id.tvBalance);
+        tvUsername = findViewById(R.id.tvUsername);
+        tvBalance.setText(String.valueOf(currentPlayer.getBalance()));
+        tvUsername.setText(currentPlayer.getUsername());
+
         lvTournaments = findViewById(R.id.lvTournaments);
         //Refactoring needed
         listOfTournaments = new ArrayList<Tournament>();
@@ -57,8 +64,10 @@ public class Home extends AppCompatActivity implements ChildEventListener, View.
         adapter = new TournamentDisplayAdapter(this, listOfTournaments);
         lvTournaments.setAdapter(adapter);
 
-        btnFindMatch = findViewById(R.id.buttonFindMatch);
+        btnFindMatch = findViewById(R.id.btnFindMatch);
         btnFindMatch.setOnClickListener(this);
+
+
     }
 
     @Override
@@ -70,6 +79,7 @@ public class Home extends AppCompatActivity implements ChildEventListener, View.
         tournament.setGameMode(snapshot.child("gameMode").getValue().toString());
         tournament.setPrize(Float.valueOf(snapshot.child("prize").getValue().toString()));
         tournament.setListOfPlayers((ArrayList<String>) snapshot.child("listOfPlayers").getValue());
+        tournament.setListOfMatches((ArrayList<String>) snapshot.child("listOfMatches").getValue());
 
         listOfTournaments.add(tournament);
     }
