@@ -5,6 +5,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
+import android.widget.Button;
 import android.widget.TextView;
 
 import com.example.raisethestake.R;
@@ -43,6 +44,7 @@ public class TournamentDisplayAdapter extends BaseAdapter {
         View one_tournament;
 
         TextView tvGameMode, tvGame, tvDevice, tvPrize, tvPlayersJoined;
+        Button btnJoin;
         LayoutInflater inflater = LayoutInflater.from(context);
         one_tournament =inflater.inflate(R.layout.one_tournament, viewGroup, false);
 
@@ -51,12 +53,15 @@ public class TournamentDisplayAdapter extends BaseAdapter {
         tvDevice = one_tournament.findViewById(R.id.tvDevice);
         tvPrize = one_tournament.findViewById(R.id.tvPrize);
         tvPlayersJoined = one_tournament.findViewById(R.id.tvPlayersJoined);
+        btnJoin = one_tournament.findViewById(R.id.btnJoin);
+
 
         tvGameMode.setText(tournament.getGameMode());
         tvGame.setText(tournament.getGame());
         tvDevice.setText(tournament.getDevice());
         tvPrize.setText("$" + String.valueOf(tournament.getPrize()));
         tvPlayersJoined.setText(tournament.getListOfPlayers().size() + "/" + tournament.getNumOfPlayers() + " players joined");
+
 
         return one_tournament;
     }

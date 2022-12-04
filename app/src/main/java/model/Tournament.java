@@ -2,9 +2,11 @@ package model;
 
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.UUID;
 
 public class Tournament {
 
+    private String uuid;
     private String game;
     private String gameMode;
     private String device;
@@ -15,6 +17,7 @@ public class Tournament {
 
 
     public Tournament(String game, String gameMode, String device, ArrayList<String> listOfPlayers, float prize, ArrayList<String> listOfMatches) {
+        uuid = UUID.randomUUID().toString();
         this.game = game;
         this.gameMode = gameMode;
         this.device = device;
@@ -24,9 +27,12 @@ public class Tournament {
     }
 
     public Tournament(){
+        uuid = UUID.randomUUID().toString();
         listOfPlayers = new ArrayList<String>();
         listOfMatches = new ArrayList<String>();
     }
+
+    public String getUuid() { return uuid ;}
 
     public String getGame() {
         return game;
