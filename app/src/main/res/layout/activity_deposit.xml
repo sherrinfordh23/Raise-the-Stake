@@ -78,10 +78,10 @@
         android:layout_marginHorizontal="20dp">
 
         <TextView
-            android:id="@+id/textDeposite"
+            android:id="@+id/textDeposit"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Deposite"
+            android:text="Deposit"
             android:textSize="25sp"
             android:textColor="@color/black"
             android:textStyle="bold"
@@ -116,7 +116,7 @@
                 android:layout_height="wrap_content" >
 
                 <RadioButton
-                    android:id="@+id/radioButton10"
+                    android:id="@+id/rb10"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:textColor="@color/black"
@@ -142,7 +142,7 @@
                 android:layout_height="wrap_content" >
 
                 <RadioButton
-                    android:id="@+id/radioButton25"
+                    android:id="@+id/rb25"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:textColor="@color/black"
@@ -168,7 +168,7 @@
                 android:layout_height="wrap_content" >
 
                 <RadioButton
-                    android:id="@+id/radioButton50"
+                    android:id="@+id/rb50"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:textColor="@color/black"
@@ -200,7 +200,7 @@
                 android:textStyle="bold" />
 
             <EditText
-                android:id="@+id/editTextAmount"
+                android:id="@+id/edAmount"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
@@ -252,7 +252,7 @@
                 android:layout_height="wrap_content" >
 
                 <RadioButton
-                    android:id="@+id/radioButtonCreditDebit"
+                    android:id="@+id/rbCreditDebit"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:textColor="@color/black"
@@ -266,7 +266,7 @@
 
 
         <Button
-            android:id="@+id/buttonDeposite"
+            android:id="@+id/btnDeposit"
             android:layout_width="250dp"
             android:layout_height="50dp"
             android:layout_gravity="center"

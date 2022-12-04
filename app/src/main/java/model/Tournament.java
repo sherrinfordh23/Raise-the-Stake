@@ -1,17 +1,20 @@
 package model;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 
 public class Tournament {
 
     private String game;
     private String gameMode;
     private String device;
-    private String listOfPlayers;
-    private float prize;
-    private ArrayList<Match> listOfMatches;
+    private ArrayList<String> listOfPlayers;
+    private float prize = 50;
+    private ArrayList<String> listOfMatches;
+    private int numOfPlayers = 16;
 
-    public Tournament(String game, String gameMode, String device, String listOfPlayers, float prize, ArrayList<Match> listOfMatches) {
+
+    public Tournament(String game, String gameMode, String device, ArrayList<String> listOfPlayers, float prize, ArrayList<String> listOfMatches) {
         this.game = game;
         this.gameMode = gameMode;
         this.device = device;
@@ -21,7 +24,8 @@ public class Tournament {
     }
 
     public Tournament(){
-
+        listOfPlayers = new ArrayList<String>();
+        listOfMatches = new ArrayList<String>();
     }
 
     public String getGame() {
@@ -48,14 +52,6 @@ public class Tournament {
         this.device = device;
     }
 
-    public String getListOfPlayers() {
-        return listOfPlayers;
-    }
-
-    public void setListOfPlayers(String listOfPlayers) {
-        this.listOfPlayers = listOfPlayers;
-    }
-
     public float getPrize() {
         return prize;
     }
@@ -64,13 +60,32 @@ public class Tournament {
         this.prize = prize;
     }
 
-    public ArrayList<Match> getListOfMatches() {
+    public ArrayList<String> getListOfPlayers() {
+        return listOfPlayers;
+    }
+
+    public void setListOfPlayers(ArrayList<String> listOfPlayers) {
+        this.listOfPlayers = listOfPlayers;
+    }
+
+    public ArrayList<String> getListOfMatches() {
         return listOfMatches;
     }
 
-    public void setListOfMatches(ArrayList<Match> listOfMatches) {
+    public void setListOfMatches(ArrayList<String> listOfMatches) {
         this.listOfMatches = listOfMatches;
     }
+
+    public void setNumOfPlayers(int numOfPlayers)
+    {
+        this.numOfPlayers = numOfPlayers;
+    }
+
+    public int getNumOfPlayers()
+    {
+        return this.numOfPlayers;
+    }
+
 
     @Override
     public String toString() {
@@ -78,7 +93,7 @@ public class Tournament {
                 "game='" + game + '\'' +
                 ", gameMode='" + gameMode + '\'' +
                 ", device='" + device + '\'' +
-                ", listOfPlayers='" + listOfPlayers + '\'' +
+                ", listOfPlayers=" + listOfPlayers +
                 ", prize=" + prize +
                 ", listOfMatches=" + listOfMatches +
                 '}';

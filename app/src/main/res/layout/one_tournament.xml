@@ -1,0 +1,118 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+android:layout_width="match_parent"
+android:layout_height="180dp"
+android:orientation="vertical"
+android:layout_marginHorizontal="30dp"
+android:padding="10dp"
+android:background="#58a17d"
+android:elevation="100dp"
+    >
+<LinearLayout
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="horizontal"
+    android:layout_weight="1"
+    android:gravity="left|center">
+
+
+    <TextView
+        android:id="@+id/tvGameMode"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_weight="1"
+        android:layout_gravity="center_vertical"
+        android:textColor="@color/white"
+        android:textSize="20sp"
+        android:text="Game Mode"
+        android:textStyle="bold"
+        />
+</LinearLayout>
+
+<LinearLayout
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="horizontal"
+    android:layout_weight="1"
+    android:layout_marginLeft="20dp"
+    android:gravity="left|center">
+
+
+    <TextView
+        android:id="@+id/tvGame"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Game"
+        android:background="#b5b8bd"
+        android:textStyle="bold"
+        android:textColor="@color/black"/>
+
+
+    <TextView
+        android:id="@+id/tvDevice"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Device"
+        android:background="#b5b8bd"
+        android:layout_marginLeft="20dp"
+        android:textStyle="bold"
+        android:textColor="@color/black"/>
+</LinearLayout>
+
+<LinearLayout
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="horizontal"
+    android:layout_weight="1"
+    android:layout_marginLeft="20dp"
+    android:textStyle="bold"
+    android:gravity="center">
+    <TextView
+        android:id="@+id/tvPrize"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_weight="1"
+        android:textColor="@color/white"
+        android:textSize="30sp"
+        android:text="Prize" />
+
+    <TextView
+        android:id="@+id/textPrize"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_weight="3"
+        android:textColor="@color/white"
+        android:textSize="15sp"
+        android:text="prize"
+        android:textStyle="bold"/>
+</LinearLayout>
+
+<LinearLayout
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="horizontal"
+    android:layout_weight="1"
+    android:gravity="center">
+
+    <TextView
+        android:id="@+id/tvPlayersJoined"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_weight="1"
+        android:text="players joined"
+        android:textSize="18sp"
+        android:textColor="@color/white"
+        android:textStyle="bold"/>
+
+    <Button
+        android:id="@+id/btnJoin"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_weight="0"
+        android:backgroundTint="#a4a7ab"
+        android:text="Join For $25"
+        android:textAllCaps="false"
+        android:textColor="@color/black"
+        android:textStyle="bold"/>
+</LinearLayout>
+</LinearLayout>

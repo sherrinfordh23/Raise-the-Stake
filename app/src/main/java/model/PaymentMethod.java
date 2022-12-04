@@ -1,6 +1,8 @@
 package model;
 
-public class PaymentMethod {
+import java.io.Serializable;
+
+public class PaymentMethod implements Serializable {
 
     private long creditCardNumber;
     private String cardHolderName;

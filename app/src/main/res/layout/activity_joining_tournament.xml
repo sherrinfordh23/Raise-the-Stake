@@ -102,7 +102,7 @@
         android:orientation="vertical">
 
         <Button
-            android:id="@+id/buttonJoin"
+            android:id="@+id/btnJoin"
             android:layout_width="300dp"
             android:layout_height="60dp"
             android:text="Join for $25"
@@ -117,7 +117,7 @@
             />
 
         <Button
-            android:id="@+id/buttonJoinCredit"
+            android:id="@+id/btnJoinCredit"
             android:layout_width="300dp"
             android:layout_height="60dp"
             android:text="Join with x credit"

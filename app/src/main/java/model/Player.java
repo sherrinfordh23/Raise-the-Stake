@@ -1,21 +1,23 @@
 package model;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 
-public class Player {
+public class Player implements Serializable {
 
     private String username;
     private String email;
     private String firstName;
     private String lastName;
     private String password;
-    private ArrayList<Player> listOfFollowers;
-    private ArrayList<Player> listOfFollowing;
+    private ArrayList<String> listOfFollowers;
+    private ArrayList<String> listOfFollowing;
     private float balance;
     private Profile profile;
-    private ArrayList<PaymentMethod> paymentMethods;
+    private ArrayList<String> paymentMethods;
 
-    public Player(String username, String email, String firstName, String lastName, String password, ArrayList<Player> listOfFollowers, ArrayList<Player> listOfFollowing, float balance, Profile profile, ArrayList<PaymentMethod> paymentMethods) {
+
+    public Player(String username, String email, String firstName, String lastName, String password, ArrayList<String> listOfFollowers, ArrayList<String> listOfFollowing, float balance, Profile profile, ArrayList<String> paymentMethods) {
         this.username = username;
         this.email = email;
         this.firstName = firstName;
@@ -30,9 +32,9 @@ public class Player {
 
     public Player() {
         balance = 0;
-        paymentMethods = new ArrayList<PaymentMethod>();
-        listOfFollowers = new ArrayList<Player>();
-        listOfFollowing = new ArrayList<Player>();
+        paymentMethods = new ArrayList<String>();
+        listOfFollowers = new ArrayList<String>();
+        listOfFollowing = new ArrayList<String>();
         profile = new Profile();
         email = "";
     }
@@ -78,22 +80,6 @@ public class Player {
         this.password = password;
     }
 
-    public ArrayList<Player> getListOfFollowers() {
-        return listOfFollowers;
-    }
-
-    public void setListOfFollowers(ArrayList<Player> listOfFollowers) {
-        this.listOfFollowers = listOfFollowers;
-    }
-
-    public ArrayList<Player> getListOfFollowing() {
-        return listOfFollowing;
-    }
-
-    public void setListOfFollowing(ArrayList<Player> listOfFollowing) {
-        this.listOfFollowing = listOfFollowing;
-    }
-
     public float getBalance() {
         return balance;
     }
@@ -110,11 +96,27 @@ public class Player {
         this.profile = profile;
     }
 
-    public ArrayList<PaymentMethod> getPaymentMethods() {
+    public ArrayList<String> getListOfFollowers() {
+        return listOfFollowers;
+    }
+
+    public void setListOfFollowers(ArrayList<String> listOfFollowers) {
+        this.listOfFollowers = listOfFollowers;
+    }
+
+    public ArrayList<String> getListOfFollowing() {
+        return listOfFollowing;
+    }
+
+    public void setListOfFollowing(ArrayList<String> listOfFollowing) {
+        this.listOfFollowing = listOfFollowing;
+    }
+
+    public ArrayList<String> getPaymentMethods() {
         return paymentMethods;
     }
 
-    public void setPaymentMethods(ArrayList<PaymentMethod> paymentMethods) {
+    public void setPaymentMethods(ArrayList<String> paymentMethods) {
         this.paymentMethods = paymentMethods;
     }
 
