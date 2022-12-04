@@ -48,7 +48,7 @@
                         android:textStyle="bold" />
 
                     <TextView
-                        android:id="@+id/textView2"
+                        android:id="@+id/tvBalance"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="$400" />
@@ -107,14 +107,60 @@
             android:text="Game Mode"
             />
 
-        //must be done in backend
+        <RadioGroup
+            android:id="@+id/rgGameMode"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent" >
 
-        <androidx.recyclerview.widget.RecyclerView
+            <RadioButton
+                android:id="@+id/rbQuickMatch"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Quick Match" />
+
+            <RadioButton
+                android:id="@+id/rbMyTeam"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="MyTeam" />
+        </RadioGroup>
+
+
+        <TextView
+            android:id="@+id/txtDevice"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            tools:itemCount="3"
-            tools:listitem="@layout/recycler_view_item"
+            android:textColor="@color/black"
+            android:textStyle="bold"
+            android:textSize="25sp"
+            android:text="Console"
             />
+
+        <RadioGroup
+            android:id="@+id/rgDevice"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent" >
+
+            <RadioButton
+                android:id="@+id/rbPS5"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="PS5" />
+
+            <RadioButton
+                android:id="@+id/rbXbox"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Xbox" />
+        </RadioGroup>
+
+<!--        <androidx.recyclerview.widget.RecyclerView-->
+<!--            android:layout_width="match_parent"-->
+<!--            android:layout_height="wrap_content"-->
+<!--            tools:itemCount="3"-->
+<!--            tools:listitem="@layout/recycler_view_item"-->
+<!--            />-->
+
     </LinearLayout>
 
     <Space

@@ -4,9 +4,11 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.provider.ContactsContract;
 import android.util.Log;
+import android.view.View;
 import android.widget.Button;
 import android.widget.ListView;
 import android.widget.Toast;
@@ -24,7 +26,7 @@ import model.Player;
 import model.Tournament;
 import model.TournamentDisplayAdapter;
 
-public class Home extends AppCompatActivity implements ChildEventListener {
+public class Home extends AppCompatActivity implements ChildEventListener, View.OnClickListener {
 
     ListView lvTournaments;
     Button btnFindMatch;
@@ -34,6 +36,8 @@ public class Home extends AppCompatActivity implements ChildEventListener {
     ArrayList<Tournament> listOfTournaments;
     TournamentDisplayAdapter adapter;
 
+    Player currentPlayer;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -42,7 +46,9 @@ public class Home extends AppCompatActivity implements ChildEventListener {
         initialize();
     }
 
-    private void initialize() {
+    private void initialize()
+    {
+        currentPlayer = (Player) getIntent().getExtras().getSerializable("currentPlayer");
 
         lvTournaments = findViewById(R.id.lvTournaments);
         //Refactoring needed
@@ -51,6 +57,8 @@ public class Home extends AppCompatActivity implements ChildEventListener {
         adapter = new TournamentDisplayAdapter(this, listOfTournaments);
         lvTournaments.setAdapter(adapter);
 
+        btnFindMatch = findViewById(R.id.buttonFindMatch);
+        btnFindMatch.setOnClickListener(this);
     }
 
     @Override
@@ -84,5 +92,19 @@ public class Home extends AppCompatActivity implements ChildEventListener {
     @Override
     public void onCancelled(@NonNull DatabaseError error) {
 
+    }
+
+    @Override
+    public void onClick(View view)
+    {
+        int id = view.getId();
+        switch (id)
+        {
+            case R.id.btnFindMatch:
+                Intent i = new Intent(this, FindMatch.class);
+                i.putExtra("currentPlayer", currentPlayer);
+                startActivity(i);
+                break;
+        }
     }
 }

@@ -25,6 +25,14 @@ public class Match {
         this.playerWon = playerWon;
     }
 
+    public Match(String game, String gameMode, String device, float moneyDeposited, Player player1) {
+        this.game = game;
+        this.gameMode = gameMode;
+        this.device = device;
+        this.moneyDeposited = moneyDeposited;
+        this.player1 = player1;
+    }
+
     public Match(){
 
     }
