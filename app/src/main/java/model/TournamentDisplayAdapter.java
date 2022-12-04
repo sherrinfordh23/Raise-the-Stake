@@ -55,7 +55,7 @@ public class TournamentDisplayAdapter extends BaseAdapter {
         tvGameMode.setText(tournament.getGameMode());
         tvGame.setText(tournament.getGame());
         tvDevice.setText(tournament.getDevice());
-        tvPrize.setText(String.valueOf(tvPrize.getText().toString()));
+        tvPrize.setText("$" + String.valueOf(tournament.getPrize()));
         tvPlayersJoined.setText(tournament.getListOfPlayers().size() + "/" + tournament.getNumOfPlayers() + " players joined");
 
         return one_tournament;

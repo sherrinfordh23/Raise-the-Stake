@@ -84,7 +84,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             Player playerFound = snapshot.getValue(Player.class);
             if(playerFound.getPassword().equals(edPassword.getText().toString()))
             {
-                Intent i = new Intent(this, SearchForPlayer.class);
+                Intent i = new Intent(this, Home.class);
                 i.putExtra("currentPlayer", playerFound);
                 startActivity(i);
             }
