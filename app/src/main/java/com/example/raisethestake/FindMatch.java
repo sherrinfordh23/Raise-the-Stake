@@ -16,7 +16,7 @@ import model.Player;
 
 public class FindMatch extends AppCompatActivity implements View.OnClickListener {
 
-    TextView tvGame, tvBalance;
+    TextView tvGame, tvBalance, tvName;
     EditText edAmount;
     Button btnFindMatch;
     RadioGroup rgDevice, rgGameMode;
@@ -38,6 +38,8 @@ public class FindMatch extends AppCompatActivity implements View.OnClickListener
 
         tvBalance = findViewById(R.id.tvBalance);
         tvBalance.setText(String.valueOf(currentPlayer.getBalance()));
+        tvName = findViewById(R.id.tvUsername);
+        tvName.setText(currentPlayer.getUsername());
         tvGame = findViewById(R.id.textNBA);
 
         rgGameMode = findViewById(R.id.rgGameMode);
@@ -50,7 +52,7 @@ public class FindMatch extends AppCompatActivity implements View.OnClickListener
 
         edAmount = findViewById(R.id.editTextAmount);
 
-        btnFindMatch = findViewById(R.id.buttonFindMatch);
+        btnFindMatch = findViewById(R.id.btnFindMatch);
         btnFindMatch.setOnClickListener(this);
     }
 
@@ -61,12 +63,12 @@ public class FindMatch extends AppCompatActivity implements View.OnClickListener
         switch (id)
         {
             case R.id.btnFindMatch:
-                checkBalance(view);
+                checkBalance();
                 break;
         }
     }
 
-    private void checkBalance(View view)
+    private void checkBalance()
     {
         if (currentPlayer.getBalance() < Float.valueOf(edAmount.getText().toString()))
         {

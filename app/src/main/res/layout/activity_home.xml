@@ -43,14 +43,14 @@
                     android:gravity="right|center">
 
                     <TextView
-                        android:id="@+id/textViewUsername"
+                        android:id="@+id/tvUsername"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:gravity="right"
                         android:textStyle="bold" />
 
                     <TextView
-                        android:id="@+id/textView2"
+                        android:id="@+id/tvBalance"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="$400" />
