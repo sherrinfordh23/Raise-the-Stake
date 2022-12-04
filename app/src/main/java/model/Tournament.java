@@ -9,8 +9,9 @@ public class Tournament {
     private String gameMode;
     private String device;
     private ArrayList<Player> listOfPlayers;
-    private float prize;
+    private float prize = 50;
     private ArrayList<Match> listOfMatches;
+    private int numOfPlayers = 16;
 
 
     public Tournament(String game, String gameMode, String device, ArrayList<Player> listOfPlayers, float prize, ArrayList<Match> listOfMatches) {
@@ -23,7 +24,8 @@ public class Tournament {
     }
 
     public Tournament(){
-
+        listOfPlayers = new ArrayList<Player>();
+        listOfMatches = new ArrayList<Match>();
     }
 
     public String getGame() {
@@ -72,6 +74,16 @@ public class Tournament {
 
     public void setListOfMatches(ArrayList<Match> listOfMatches) {
         this.listOfMatches = listOfMatches;
+    }
+
+    public void setNumOfPlayers(int numOfPlayers)
+    {
+        this.numOfPlayers = numOfPlayers;
+    }
+
+    public int getNumOfPlayers()
+    {
+        return this.numOfPlayers;
     }
 
 

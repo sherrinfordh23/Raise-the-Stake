@@ -139,6 +139,14 @@
         android:layout_marginVertical="2dp"
         />
 
+x
+
+
+    <ListView
+        android:id="@+id/lvTournaments"
+        android:layout_width="match_parent"
+        android:layout_height="360dp" />
+<!--
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="180dp"
@@ -380,6 +388,7 @@
                 app:cornerRadius="30dp" />
         </LinearLayout>
     </LinearLayout>
+    -->
 
 
     <Space
@@ -392,7 +401,7 @@
         android:orientation="vertical">
 
         <Button
-            android:id="@+id/buttonFindMatch"
+            android:id="@+id/btnFindMatch"
             android:layout_width="200dp"
             android:layout_height="60dp"
             android:text="Find a Match"
@@ -407,6 +416,7 @@
             />
 
     </LinearLayout>
+
 
     <Space
         android:layout_width="match_parent"
