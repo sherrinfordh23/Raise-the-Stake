@@ -1,7 +1,10 @@
 package model;
 
+import java.util.UUID;
+
 public class Match {
 
+    private String uuid;
     private String game;
     private String gameMode;
     private String device;
@@ -10,7 +13,9 @@ public class Match {
     private Player player2;
     private Player playerWon;
 
-    public Match(String game, String gameMode, String device, float moneyDeposited, Player player1, Player player2, Player playerWon) {
+    public Match(String game, String gameMode, String device,
+                 float moneyDeposited, Player player1, Player player2, Player playerWon) {
+        this.uuid = UUID.randomUUID().toString();
         this.game = game;
         this.gameMode = gameMode;
         this.device = device;
@@ -78,6 +83,14 @@ public class Match {
 
     public void setPlayerWon(Player playerWon) {
         this.playerWon = playerWon;
+    }
+
+    public String getUuid() {
+        return uuid;
+    }
+
+    public void setUuid(String uuid) {
+        this.uuid = uuid;
     }
 
     @Override
