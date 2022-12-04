@@ -1,6 +1,7 @@
 package model;
 
 import android.content.Context;
+import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -8,6 +9,7 @@ import android.widget.BaseAdapter;
 import android.widget.Button;
 import android.widget.TextView;
 
+import com.example.raisethestake.JoinedTournament;
 import com.example.raisethestake.R;
 
 import java.util.ArrayList;
@@ -53,14 +55,22 @@ public class TournamentDisplayAdapter extends BaseAdapter {
         tvDevice = one_tournament.findViewById(R.id.tvDevice);
         tvPrize = one_tournament.findViewById(R.id.tvPrize);
         tvPlayersJoined = one_tournament.findViewById(R.id.tvPlayersJoined);
-        btnJoin = one_tournament.findViewById(R.id.btnJoin);
-
 
         tvGameMode.setText(tournament.getGameMode());
         tvGame.setText(tournament.getGame());
         tvDevice.setText(tournament.getDevice());
         tvPrize.setText("$" + String.valueOf(tournament.getPrize()));
         tvPlayersJoined.setText(tournament.getListOfPlayers().size() + "/" + tournament.getNumOfPlayers() + " players joined");
+        btnJoin = one_tournament.findViewById(R.id.btnJoin);
+        btnJoin.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
+                Intent intent = new Intent(context, JoinedTournament.class);
+                intent.putExtra("currentTournament", tournament);
+                context.startActivity(intent);
+            }
+        });
 
 
         return one_tournament;
