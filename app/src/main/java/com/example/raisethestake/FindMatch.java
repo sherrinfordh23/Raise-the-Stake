@@ -77,20 +77,25 @@ public class FindMatch extends AppCompatActivity implements View.OnClickListener
         switch (id)
         {
             case R.id.btnFindMatch:
-<<<<<<< HEAD
                 createMatch(view);
-=======
                 checkBalance();
->>>>>>> 8f28042a35a2d44fa96c65c420c0b10910f6cf1e
                 break;
         }
     }
 
-<<<<<<< HEAD
     private void createMatch(View view)
-=======
+    {
+        if (currentPlayer.getBalance() < Float.valueOf(edAmount.getText().toString()))
+        {
+            Toast.makeText(this, "Insufficient Funds!", Toast.LENGTH_LONG).show();
+        }
+        else {
+            Match match = new Match();
+            newMatchId = UUID.randomUUID().toString();
+            matches.child(newMatchId).addListenerForSingleValueEvent(this);
+        }
+    }
     private void checkBalance()
->>>>>>> 8f28042a35a2d44fa96c65c420c0b10910f6cf1e
     {
         if (currentPlayer.getBalance() < Float.valueOf(edAmount.getText().toString()))
         {
