@@ -3,6 +3,7 @@ package com.example.raisethestake;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
@@ -35,6 +36,7 @@ public class FindMatch extends AppCompatActivity implements View.OnClickListener
 
     FirebaseDatabase root = FirebaseDatabase.getInstance();
     DatabaseReference playersSearching = root.getReference("PlayersSearching");
+    DatabaseReference players = root.getReference("Players");
 
     String newMatchId;
 
@@ -78,7 +80,6 @@ public class FindMatch extends AppCompatActivity implements View.OnClickListener
         {
             case R.id.btnFindMatch:
                 createMatch(view);
-                checkBalance();
                 break;
         }
     }
@@ -93,17 +94,8 @@ public class FindMatch extends AppCompatActivity implements View.OnClickListener
             Match match = new Match();
             newMatchId = UUID.randomUUID().toString();
             playersSearching.child(newMatchId).addListenerForSingleValueEvent(this);
-        }
-    }
-    private void checkBalance()
-    {
-        if (currentPlayer.getBalance() < Float.valueOf(edAmount.getText().toString()))
-        {
-            Toast.makeText(this, "Insufficient Funds!", Toast.LENGTH_LONG).show();
-        }
-        else {
-            newMatchId = UUID.randomUUID().toString();
-            playersSearching.child(newMatchId).addListenerForSingleValueEvent(this);
+
+
         }
     }
 
@@ -122,13 +114,20 @@ public class FindMatch extends AppCompatActivity implements View.OnClickListener
                 // selected Device
                 int selectedDeviceId = rgDevice.getCheckedRadioButtonId();
                 RadioButton selectedDevice = (RadioButton)findViewById(selectedDeviceId);
-                String device = selectedGameMode.getText().toString();
+                String device = selectedDevice.getText().toString();
 
                 Float amount = Float.valueOf(edAmount.getText().toString());
-                Player player1 = currentPlayer;
+                String player1 = currentPlayer.getUsername();
 
                 Match newMatch = new Match(newMatchId, game, gameMode, device, amount, player1);
+                currentPlayer.setMatchOrTournamentId(newMatch.getUuid());
+
                 playersSearching.child(newMatchId).setValue(newMatch);
+                players.child(currentPlayer.getUsername()).setValue(currentPlayer);
+
+                Intent intent = new Intent(this, Lobby.class);
+                intent.putExtra("currentPlayer", currentPlayer);
+                startActivity(intent);
             }
             catch (Exception e) {
                 Toast.makeText(this, e.getMessage(), Toast.LENGTH_LONG).show();

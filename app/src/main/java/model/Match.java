@@ -1,5 +1,7 @@
 package model;
 
+import androidx.annotation.Nullable;
+
 import java.util.UUID;
 
 public class Match {
@@ -9,12 +11,12 @@ public class Match {
     private String gameMode;
     private String device;
     private float moneyDeposited;
-    private Player player1;
-    private Player player2;
-    private Player playerWon;
+    private String player1;
+    private String player2;
+    private String playerWon;
 
     public Match(String game, String gameMode, String device,
-                 float moneyDeposited, Player player1, Player player2, Player playerWon) {
+                 float moneyDeposited, String player1, String player2, String playerWon) {
         this.uuid = UUID.randomUUID().toString();
         this.game = game;
         this.gameMode = gameMode;
@@ -25,7 +27,7 @@ public class Match {
         this.playerWon = playerWon;
     }
 
-    public Match(String game, String gameMode, String device, float moneyDeposited, Player player1) {
+    public Match(String game, String gameMode, String device, float moneyDeposited, String player1) {
         this.uuid = UUID.randomUUID().toString();
         this.game = game;
         this.gameMode = gameMode;
@@ -34,7 +36,7 @@ public class Match {
         this.player1 = player1;
     }
 
-    public Match(String id, String game, String gameMode, String device, float moneyDeposited, Player player1) {
+    public Match(String id, String game, String gameMode, String device, float moneyDeposited, String player1) {
         this.uuid = id;
         this.game = game;
         this.gameMode = gameMode;
@@ -79,27 +81,27 @@ public class Match {
         this.moneyDeposited = moneyDeposited;
     }
 
-    public Player getPlayer1() {
+    public String getPlayer1() {
         return player1;
     }
 
-    public void setPlayer1(Player player1) {
+    public void setPlayer1(String player1) {
         this.player1 = player1;
     }
 
-    public Player getPlayer2() {
+    public String getPlayer2() {
         return player2;
     }
 
-    public void setPlayer2(Player player2) {
+    public void setPlayer2(String player2) {
         this.player2 = player2;
     }
 
-    public Player getPlayerWon() {
+    public String getPlayerWon() {
         return playerWon;
     }
 
-    public void setPlayerWon(Player playerWon) {
+    public void setPlayerWon(String playerWon) {
         this.playerWon = playerWon;
     }
 
@@ -122,5 +124,16 @@ public class Match {
                 ", player2=" + player2 +
                 ", playerWon=" + playerWon +
                 '}';
+    }
+
+    @Override
+    public boolean equals(@Nullable Object obj) {
+        obj = (Match) obj;
+
+        return this.getGame().equals(((Match) obj).getGame()) &&
+                this.getGameMode().equals(((Match) obj).gameMode) &&
+                this.getDevice().equals(((Match) obj).getDevice()) &&
+                this.getMoneyDeposited() == ((Match) obj).getMoneyDeposited() &&
+                !this.getPlayer1().equals(((Match) obj).player1);
     }
 }

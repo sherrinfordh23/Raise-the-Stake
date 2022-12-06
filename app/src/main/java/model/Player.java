@@ -15,6 +15,7 @@ public class Player implements Serializable {
     private float balance;
     private Profile profile;
     private ArrayList<String> paymentMethods;
+    private String matchOrTournamentId;
 
 
     public Player(String username, String email, String firstName, String lastName, String password, ArrayList<String> listOfFollowers, ArrayList<String> listOfFollowing, float balance, Profile profile, ArrayList<String> paymentMethods) {
@@ -36,6 +37,7 @@ public class Player implements Serializable {
         listOfFollowers = new ArrayList<String>();
         listOfFollowing = new ArrayList<String>();
         profile = new Profile();
+        matchOrTournamentId = null;
         email = "";
     }
 
@@ -118,6 +120,14 @@ public class Player implements Serializable {
 
     public void setPaymentMethods(ArrayList<String> paymentMethods) {
         this.paymentMethods = paymentMethods;
+    }
+
+    public String getMatchOrTournamentId() {
+        return matchOrTournamentId;
+    }
+
+    public void setMatchOrTournamentId(String matchOrTournamentId) {
+        this.matchOrTournamentId = matchOrTournamentId;
     }
 
     @Override
