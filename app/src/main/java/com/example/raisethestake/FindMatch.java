@@ -34,7 +34,7 @@ public class FindMatch extends AppCompatActivity implements View.OnClickListener
     Player currentPlayer;
 
     FirebaseDatabase root = FirebaseDatabase.getInstance();
-    DatabaseReference matches = root.getReference("Matches");
+    DatabaseReference playersSearching = root.getReference("PlayersSearching");
 
     String newMatchId;
 
@@ -92,7 +92,7 @@ public class FindMatch extends AppCompatActivity implements View.OnClickListener
         else {
             Match match = new Match();
             newMatchId = UUID.randomUUID().toString();
-            matches.child(newMatchId).addListenerForSingleValueEvent(this);
+            playersSearching.child(newMatchId).addListenerForSingleValueEvent(this);
         }
     }
     private void checkBalance()
@@ -103,7 +103,7 @@ public class FindMatch extends AppCompatActivity implements View.OnClickListener
         }
         else {
             newMatchId = UUID.randomUUID().toString();
-            matches.child(newMatchId).addListenerForSingleValueEvent(this);
+            playersSearching.child(newMatchId).addListenerForSingleValueEvent(this);
         }
     }
 
@@ -128,7 +128,7 @@ public class FindMatch extends AppCompatActivity implements View.OnClickListener
                 Player player1 = currentPlayer;
 
                 Match newMatch = new Match(newMatchId, game, gameMode, device, amount, player1);
-                matches.child(newMatchId).setValue(newMatch);
+                playersSearching.child(newMatchId).setValue(newMatch);
             }
             catch (Exception e) {
                 Toast.makeText(this, e.getMessage(), Toast.LENGTH_LONG).show();
