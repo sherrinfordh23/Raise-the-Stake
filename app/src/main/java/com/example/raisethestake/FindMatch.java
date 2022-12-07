@@ -89,21 +89,28 @@ public class FindMatch extends AppCompatActivity implements View.OnClickListener
 
     private void createMatch(View view)
     {
-        if (!rbMyTeam.isChecked() && !rbQuickMatch.isChecked() && edAmount.getText() == null)
-        {
+        // FindMatch Fields Validation
+        if(!rbMyTeam.isChecked())
             tvDeviceValidation.setVisibility(View.VISIBLE);
-            tvGameModeValidation.setVisibility(View.VISIBLE);
-            tvAmountValidation.setVisibility(View.VISIBLE);
-        }
-        else {
-            if (currentPlayer.getBalance() < Float.valueOf(edAmount.getText().toString())) {
-                Toast.makeText(this, "Insufficient Funds!", Toast.LENGTH_LONG).show();
-            } else {
-                Match match = new Match();
-                newMatchId = UUID.randomUUID().toString();
-                playersSearching.child(newMatchId).addListenerForSingleValueEvent(this);
+        else
+            tvDeviceValidation.setVisibility(View.INVISIBLE);
 
-            }
+        if (!rbQuickMatch.isChecked())
+            tvGameModeValidation.setVisibility(View.VISIBLE);
+        else
+            tvGameModeValidation.setVisibility(View.INVISIBLE);
+
+        if (edAmount.getText() == null)
+            tvAmountValidation.setVisibility(View.VISIBLE);
+        else
+            tvAmountValidation.setVisibility(View.INVISIBLE);
+
+        if (currentPlayer.getBalance() < Float.valueOf(edAmount.getText().toString())) {
+            Toast.makeText(this, "Insufficient Funds!", Toast.LENGTH_LONG).show();
+        } else {
+            Match match = new Match();
+            newMatchId = UUID.randomUUID().toString();
+            playersSearching.child(newMatchId).addListenerForSingleValueEvent(this);
         }
     }
 
