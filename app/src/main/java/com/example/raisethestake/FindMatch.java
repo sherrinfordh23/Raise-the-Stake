@@ -26,7 +26,7 @@ import model.Player;
 
 public class FindMatch extends AppCompatActivity implements View.OnClickListener, ValueEventListener {
 
-    TextView tvGame, tvBalance, tvName;
+    TextView tvGame, tvBalance, tvName, tvGameModeValidation, tvDeviceValidation, tvAmountValidation;
     EditText edAmount;
     Button btnFindMatch;
     RadioGroup rgDevice, rgGameMode;
@@ -57,6 +57,9 @@ public class FindMatch extends AppCompatActivity implements View.OnClickListener
         tvName = findViewById(R.id.tvUsername);
         tvName.setText(currentPlayer.getUsername());
         tvGame = findViewById(R.id.textNBA);
+        tvGameModeValidation = findViewById(R.id.tvGameModeValidation);
+        tvDeviceValidation = findViewById(R.id.tvDeviceValidation);
+        tvAmountValidation = findViewById(R.id.tvAmountValidation);
 
         rgGameMode = findViewById(R.id.rgGameMode);
         rbMyTeam = findViewById(R.id.rbMyTeam);
@@ -86,16 +89,21 @@ public class FindMatch extends AppCompatActivity implements View.OnClickListener
 
     private void createMatch(View view)
     {
-        if (currentPlayer.getBalance() < Float.valueOf(edAmount.getText().toString()))
+        if (!rbMyTeam.isChecked() && !rbQuickMatch.isChecked() && edAmount.getText() == null)
         {
-            Toast.makeText(this, "Insufficient Funds!", Toast.LENGTH_LONG).show();
+            tvDeviceValidation.setVisibility(View.VISIBLE);
+            tvGameModeValidation.setVisibility(View.VISIBLE);
+            tvAmountValidation.setVisibility(View.VISIBLE);
         }
         else {
-            Match match = new Match();
-            newMatchId = UUID.randomUUID().toString();
-            playersSearching.child(newMatchId).addListenerForSingleValueEvent(this);
+            if (currentPlayer.getBalance() < Float.valueOf(edAmount.getText().toString())) {
+                Toast.makeText(this, "Insufficient Funds!", Toast.LENGTH_LONG).show();
+            } else {
+                Match match = new Match();
+                newMatchId = UUID.randomUUID().toString();
+                playersSearching.child(newMatchId).addListenerForSingleValueEvent(this);
 
-
+            }
         }
     }
 

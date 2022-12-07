@@ -10,7 +10,7 @@
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="130dp"
+        android:layout_height="100dp"
         android:orientation="horizontal">
 
         <LinearLayout
@@ -72,17 +72,16 @@
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="50dp"
+        android:layout_height="35dp"
         android:orientation="vertical"
         >
-
 
         <TextView
             android:id="@+id/textNBA"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:text="NBA 2K23"
-            android:textSize="30sp"
+            android:textSize="25sp"
             android:textColor="@color/black"
             android:layout_marginLeft="50dp"/>
     </LinearLayout>
@@ -95,7 +94,10 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="vertical"
-        android:padding="30dp">
+        android:paddingLeft="30dp"
+        android:paddingRight="30dp"
+        android:paddingTop="20dp"
+        >
 
         <TextView
             android:id="@+id/textMode"
@@ -123,8 +125,19 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:text="MyTeam" />
+
         </RadioGroup>
 
+        <TextView
+            android:id="@+id/tvGameModeValidation"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textColor="#F44336"
+            android:textSize="20sp"
+            android:text="Please select the game mode"
+            android:visibility="invisible"
+            android:layout_marginBottom="10dp"
+            />
 
         <TextView
             android:id="@+id/txtDevice"
@@ -154,12 +167,15 @@
                 android:text="Xbox" />
         </RadioGroup>
 
-<!--        <androidx.recyclerview.widget.RecyclerView-->
-<!--            android:layout_width="match_parent"-->
-<!--            android:layout_height="wrap_content"-->
-<!--            tools:itemCount="3"-->
-<!--            tools:listitem="@layout/recycler_view_item"-->
-<!--            />-->
+        <TextView
+            android:id="@+id/tvDeviceValidation"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textColor="#F44336"
+            android:textSize="20sp"
+            android:text="Please select the device"
+            android:visibility="invisible"
+            />
 
     </LinearLayout>
 
@@ -199,10 +215,20 @@
                 android:background="@color/white"
                 android:ems="10"
                 android:inputType="textPersonName"
-
-
                 />
+
         </LinearLayout>
+
+        <TextView
+            android:id="@+id/tvAmountValidation"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textColor="#F44336"
+            android:textSize="20sp"
+            android:text="Please set the amount"
+            android:gravity="center"
+            android:visibility="invisible"
+            />
 
         <Button
             android:id="@+id/btnFindMatch"
