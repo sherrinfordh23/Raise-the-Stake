@@ -1,16 +1,21 @@
 package com.example.raisethestake;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.provider.ContactsContract;
+import android.util.Log;
+import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.google.firebase.database.ChildEventListener;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -24,7 +29,7 @@ import java.util.ArrayList;
 import model.Match;
 import model.Player;
 
-public class Lobby extends AppCompatActivity implements ValueEventListener {
+public class Lobby extends AppCompatActivity implements ValueEventListener, View.OnClickListener {
 
     TextView tvGame, tvGameMode, tvDevice;
     EditText edAmount;
@@ -38,6 +43,7 @@ public class Lobby extends AppCompatActivity implements ValueEventListener {
     Player currentPlayer;
     Match match;
 
+    Context context = this;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -54,6 +60,7 @@ public class Lobby extends AppCompatActivity implements ValueEventListener {
         tvDevice = findViewById(R.id.tvDevice);
         edAmount = findViewById(R.id.edAmount);
         btnCancel = findViewById(R.id.btnCancel);
+        btnCancel.setOnClickListener(this);
 
         currentPlayer = (Player) getIntent().getExtras().getSerializable("currentPlayer");
 
@@ -84,8 +91,47 @@ public class Lobby extends AppCompatActivity implements ValueEventListener {
                     }
                 });
 
-        Toast.makeText(this, currentPlayer.getMatchOrTournamentId(), Toast.LENGTH_SHORT).show();
+        //The side of the person who is waiting at the lobby
+        players.addChildEventListener(new ChildEventListener() {
+            @Override
+            public void onChildAdded(@NonNull DataSnapshot snapshot, @Nullable String previousChildName) {
+
+            }
+
+            @Override
+            public void onChildChanged(@NonNull DataSnapshot snapshot, @Nullable String previousChildName) {
+
+                Player snapshotPlayer = snapshot.getValue(Player.class);
+                if (snapshotPlayer.getUsername().equals(currentPlayer.getUsername()))
+                {
+                    currentPlayer = snapshotPlayer;
+                    Intent i = new Intent(context, PlayingMatch1.class);
+                    i.putExtra("currentPlayer", currentPlayer);
+                    startActivity(i);
+                    Lobby.this.finish();
+
+                }
+
+
+            }
+
+            @Override
+            public void onChildRemoved(@NonNull DataSnapshot snapshot) {
+
+            }
+
+            @Override
+            public void onChildMoved(@NonNull DataSnapshot snapshot, @Nullable String previousChildName) {
+
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+            }
+        });
+
         playerSearching.addListenerForSingleValueEvent(this);
+
 
 
     }
@@ -100,7 +146,7 @@ public class Lobby extends AppCompatActivity implements ValueEventListener {
             Match oneMatch = ds.getValue(Match.class);
             if(oneMatch.equals(match))
             {
-                Intent intent = new Intent(this, PlayingMatch1.class);
+                // The side of the person who finds the criteria after the criteria was already set
                 Match newMatch = new Match();
                 newMatch.setGame(oneMatch.getGame());
                 newMatch.setGameMode(oneMatch.getGameMode());
@@ -108,6 +154,11 @@ public class Lobby extends AppCompatActivity implements ValueEventListener {
                 newMatch.setMoneyDeposited(oneMatch.getMoneyDeposited());
                 newMatch.setPlayer1(oneMatch.getPlayer1());
                 newMatch.setPlayer2(match.getPlayer1());
+
+                matches.child(newMatch.getUuid()).setValue(newMatch);
+                playerSearching.child(oneMatch.getUuid()).removeValue();
+                playerSearching.child(match.getUuid()).removeValue();
+
 
                 players.child(newMatch.getPlayer1()).
                         addListenerForSingleValueEvent(new ValueEventListener() {
@@ -118,6 +169,7 @@ public class Lobby extends AppCompatActivity implements ValueEventListener {
                                     Player player = snapshot.getValue(Player.class);
                                     player.setMatchOrTournamentId(newMatch.getUuid());
                                     players.child(player.getUsername()).setValue(player);
+
                                 }
                             }
 
@@ -145,14 +197,12 @@ public class Lobby extends AppCompatActivity implements ValueEventListener {
                             }
                         });
 
-                matches.child(newMatch.getUuid()).setValue(newMatch);
-                playerSearching.child(oneMatch.getUuid()).removeValue();
-                playerSearching.child(match.getUuid()).removeValue();
 
-
-                Intent i = new Intent(this, PlayingMatch1.class);
+                Intent i = new Intent(context, PlayingMatch1.class);
                 i.putExtra("currentPlayer", currentPlayer);
                 startActivity(i);
+                Lobby.this.finish();
+
             }
 
         }
@@ -162,5 +212,16 @@ public class Lobby extends AppCompatActivity implements ValueEventListener {
     @Override
     public void onCancelled(@NonNull DatabaseError error) {
 
+    }
+
+    @Override
+    public void onClick(View view) {
+        int id = view.getId();
+        switch (id)
+        {
+            case R.id.btnCancel:
+
+                break;
+        }
     }
 }

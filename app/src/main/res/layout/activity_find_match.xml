@@ -127,18 +127,6 @@
                 android:text="MyTeam" />
 
         </RadioGroup>
-
-        <TextView
-            android:id="@+id/tvGameModeValidation"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:textColor="#F44336"
-            android:textSize="20sp"
-            android:text="Please select the game mode"
-            android:visibility="invisible"
-            android:layout_marginBottom="10dp"
-            />
-
         <TextView
             android:id="@+id/txtDevice"
             android:layout_width="match_parent"
@@ -167,16 +155,6 @@
                 android:text="Xbox" />
         </RadioGroup>
 
-        <TextView
-            android:id="@+id/tvDeviceValidation"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:textColor="#F44336"
-            android:textSize="20sp"
-            android:text="Please select the device"
-            android:visibility="invisible"
-            />
-
     </LinearLayout>
 
     <Space
@@ -197,16 +175,6 @@
             android:orientation="horizontal"
             android:padding="15dp">
 
-            <TextView
-                android:id="@+id/textAmountInsert"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center"
-                android:layout_weight="1"
-                android:text="Amount"
-                android:textSize="18sp"
-                android:textStyle="bold" />
-
             <EditText
                 android:id="@+id/editTextAmount"
                 android:layout_width="wrap_content"
@@ -214,21 +182,10 @@
                 android:layout_weight="1"
                 android:background="@color/white"
                 android:ems="10"
-                android:inputType="number"
+                android:inputType="text"
                 />
 
         </LinearLayout>
-
-        <TextView
-            android:id="@+id/tvAmountValidation"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:textColor="#F44336"
-            android:textSize="20sp"
-            android:text="Please set the amount"
-            android:gravity="center"
-            android:visibility="invisible"
-            />
 
         <Button
             android:id="@+id/btnFindMatch"

@@ -26,7 +26,7 @@ import model.Player;
 
 public class FindMatch extends AppCompatActivity implements View.OnClickListener, ValueEventListener {
 
-    TextView tvGame, tvBalance, tvName, tvGameModeValidation, tvDeviceValidation, tvAmountValidation;
+    TextView tvGame, tvBalance, tvName;
     EditText edAmount;
     Button btnFindMatch;
     RadioGroup rgDevice, rgGameMode;
@@ -57,9 +57,6 @@ public class FindMatch extends AppCompatActivity implements View.OnClickListener
         tvName = findViewById(R.id.tvUsername);
         tvName.setText(currentPlayer.getUsername());
         tvGame = findViewById(R.id.textNBA);
-        tvGameModeValidation = findViewById(R.id.tvGameModeValidation);
-        tvDeviceValidation = findViewById(R.id.tvDeviceValidation);
-        tvAmountValidation = findViewById(R.id.tvAmountValidation);
 
         rgGameMode = findViewById(R.id.rgGameMode);
         rbMyTeam = findViewById(R.id.rbMyTeam);
@@ -90,27 +87,21 @@ public class FindMatch extends AppCompatActivity implements View.OnClickListener
     private void createMatch(View view)
     {
         // FindMatch Fields Validation
-        if(!rbMyTeam.isChecked())
-            tvDeviceValidation.setVisibility(View.VISIBLE);
+        if ((!rbQuickMatch.isChecked() && !rbMyTeam.isChecked()) ||
+                (!rbPS5.isChecked() && !rbXbox.isChecked()) ||
+                edAmount.getText().equals(""))
+        {
+            Toast.makeText(this, "One or many fields are empty", Toast.LENGTH_LONG).show();
+        }
         else
-            tvDeviceValidation.setVisibility(View.INVISIBLE);
-
-        if (!rbQuickMatch.isChecked())
-            tvGameModeValidation.setVisibility(View.VISIBLE);
-        else
-            tvGameModeValidation.setVisibility(View.INVISIBLE);
-
-        if (edAmount.getText() == null)
-            tvAmountValidation.setVisibility(View.VISIBLE);
-        else
-            tvAmountValidation.setVisibility(View.INVISIBLE);
-
-        if (currentPlayer.getBalance() < Float.valueOf(edAmount.getText().toString())) {
-            Toast.makeText(this, "Insufficient Funds!", Toast.LENGTH_LONG).show();
-        } else {
-            Match match = new Match();
-            newMatchId = UUID.randomUUID().toString();
-            playersSearching.child(newMatchId).addListenerForSingleValueEvent(this);
+        {
+            if (currentPlayer.getBalance() < Float.valueOf(edAmount.getText().toString())) {
+                Toast.makeText(this, "Insufficient Funds!", Toast.LENGTH_LONG).show();
+            } else {
+                Match match = new Match();
+                newMatchId = UUID.randomUUID().toString();
+                playersSearching.child(newMatchId).addListenerForSingleValueEvent(this);
+            }
         }
     }
 
@@ -143,6 +134,7 @@ public class FindMatch extends AppCompatActivity implements View.OnClickListener
                 Intent intent = new Intent(this, Lobby.class);
                 intent.putExtra("currentPlayer", currentPlayer);
                 startActivity(intent);
+                FindMatch.this.finish();
             }
             catch (Exception e) {
                 Toast.makeText(this, e.getMessage(), Toast.LENGTH_LONG).show();

@@ -114,6 +114,7 @@ public class Home extends AppCompatActivity implements ChildEventListener, View.
                 Intent i = new Intent(this, FindMatch.class);
                 i.putExtra("currentPlayer", currentPlayer);
                 startActivity(i);
+                Home.this.finish();
                 break;
         }
     }

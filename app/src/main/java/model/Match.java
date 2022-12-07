@@ -14,6 +14,8 @@ public class Match {
     private String player1;
     private String player2;
     private String playerWon;
+    private boolean player1Ready;
+    private boolean player2Ready;
 
     public Match(String game, String gameMode, String device,
                  float moneyDeposited, String player1, String player2, String playerWon) {
@@ -111,6 +113,22 @@ public class Match {
 
     public void setUuid(String uuid) {
         this.uuid = uuid;
+    }
+
+    public boolean isPlayer1Ready() {
+        return player1Ready;
+    }
+
+    public void setPlayer1Ready(boolean player1Ready) {
+        this.player1Ready = player1Ready;
+    }
+
+    public boolean isPlayer2Ready() {
+        return player2Ready;
+    }
+
+    public void setPlayer2Ready(boolean player2Ready) {
+        this.player2Ready = player2Ready;
     }
 
     @Override
