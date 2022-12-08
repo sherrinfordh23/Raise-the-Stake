@@ -9,6 +9,7 @@ import android.content.Intent;
 import android.graphics.Color;
 import android.graphics.ColorSpace;
 import android.os.Bundle;
+import android.provider.ContactsContract;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
@@ -63,20 +64,19 @@ public class PlayingMatch1 extends AppCompatActivity implements View.OnClickList
 
 
 
-
-
         matches.addChildEventListener(new ChildEventListener() {
             @Override
             public void onChildAdded(@NonNull DataSnapshot snapshot, @Nullable String previousChildName) {
+
                 if (snapshot.getValue(Match.class).getUuid().equals(currentPlayer.getMatchOrTournamentId()))
                 {
                     currentMatch = snapshot.getValue(Match.class);
+
                 }
             }
 
             @Override
             public void onChildChanged(@NonNull DataSnapshot snapshot, @Nullable String previousChildName) {
-
 
             }
 
@@ -95,6 +95,8 @@ public class PlayingMatch1 extends AppCompatActivity implements View.OnClickList
 
             }
         });
+
+
 
         playersSearching.addChildEventListener(new ChildEventListener() {
             @Override
@@ -159,6 +161,8 @@ public class PlayingMatch1 extends AppCompatActivity implements View.OnClickList
                 btnReady.setBackgroundColor(Color.rgb(193, 230, 198));
                 break;
         }
+
+        Toast.makeText(this, currentMatch.toString(), Toast.LENGTH_LONG).show();
     }
 
     private void cancel(View view)
