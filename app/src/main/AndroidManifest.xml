@@ -32,10 +32,10 @@
             android:name=".SearchForPlayer"
             android:exported="false" />
         <activity
-            android:name=".PlayingMatch2"
+            android:name=".PlayingMatch1"
             android:exported="false" />
         <activity
-            android:name=".PlayingMatch1"
+            android:name=".PlayingMatch2"
             android:exported="false" />
         <activity
             android:name=".JoiningTournament"
