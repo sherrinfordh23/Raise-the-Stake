@@ -23,8 +23,7 @@ import com.google.firebase.database.ValueEventListener;
 import model.Match;
 import model.Player;
 
-public class PlayingMatch1 extends AppCompatActivity implements View.OnClickListener
-        {
+public class PlayingMatch1 extends AppCompatActivity implements View.OnClickListener {
 
     Button btnReady, btnCancel;
 
@@ -146,8 +145,6 @@ public class PlayingMatch1 extends AppCompatActivity implements View.OnClickList
             intent.putExtra("currentPlayer", currentPlayer);
             startActivity(intent);
             PlayingMatch1.this.finish();
-
-
 
         }
     }
