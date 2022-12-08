@@ -3,6 +3,7 @@ package com.example.raisethestake;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.content.IntentCompat;
 
 import android.content.Intent;
 import android.graphics.Color;
@@ -23,7 +24,8 @@ import com.google.firebase.database.ValueEventListener;
 import model.Match;
 import model.Player;
 
-public class PlayingMatch1 extends AppCompatActivity implements View.OnClickListener {
+public class PlayingMatch1 extends AppCompatActivity implements View.OnClickListener
+{
 
     Button btnReady, btnCancel;
 
@@ -31,6 +33,7 @@ public class PlayingMatch1 extends AppCompatActivity implements View.OnClickList
     Player currentPlayer;
 
     TextView tvName;
+
 
     FirebaseDatabase root = FirebaseDatabase.getInstance();
     DatabaseReference matches = root.getReference("Matches");
@@ -59,16 +62,77 @@ public class PlayingMatch1 extends AppCompatActivity implements View.OnClickList
         tvName.setText(currentPlayer.getUsername());
 
 
-        matches.addValueEventListener(new ValueEventListener() {
+
+
+
+        matches.addChildEventListener(new ChildEventListener() {
             @Override
-            public void onDataChange(@NonNull DataSnapshot snapshot) {
-                for (DataSnapshot ds : snapshot.getChildren())
+            public void onChildAdded(@NonNull DataSnapshot snapshot, @Nullable String previousChildName) {
+                if (snapshot.getValue(Match.class).getUuid().equals(currentPlayer.getMatchOrTournamentId()))
                 {
-                    if (ds.getValue(Match.class).getUuid().equals(currentPlayer.getMatchOrTournamentId()))
-                    {
-                        currentMatch = ds.getValue(Match.class);
-                    }
+                    currentMatch = snapshot.getValue(Match.class);
                 }
+            }
+
+            @Override
+            public void onChildChanged(@NonNull DataSnapshot snapshot, @Nullable String previousChildName) {
+
+
+            }
+
+            @Override
+            public void onChildRemoved(@NonNull DataSnapshot snapshot) {
+
+            }
+
+            @Override
+            public void onChildMoved(@NonNull DataSnapshot snapshot, @Nullable String previousChildName) {
+
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+
+            }
+        });
+
+        playersSearching.addChildEventListener(new ChildEventListener() {
+            @Override
+            public void onChildAdded(@NonNull DataSnapshot snapshot, @Nullable String previousChildName) {
+                Match playersSearchingMatch = snapshot.getValue(Match.class);
+
+                if (playersSearchingMatch.getPlayer1().equals(currentPlayer.getUsername()))
+                {
+                    Intent intent = new Intent(PlayingMatch1.this, Lobby.class);
+                    intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK);
+                    intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                    intent.putExtra("currentPlayer", currentPlayer);
+                    startActivity(intent);
+                }
+                else
+                {
+                    Intent intent = new Intent(PlayingMatch1.this, Home.class);
+                    intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK);
+                    intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                    intent.putExtra("currentPlayer", currentPlayer);
+                    startActivity(intent);
+                }
+
+            }
+
+            @Override
+            public void onChildChanged(@NonNull DataSnapshot snapshot, @Nullable String previousChildName) {
+
+            }
+
+            @Override
+            public void onChildRemoved(@NonNull DataSnapshot snapshot) {
+
+            }
+
+            @Override
+            public void onChildMoved(@NonNull DataSnapshot snapshot, @Nullable String previousChildName) {
+
             }
 
             @Override
@@ -117,34 +181,14 @@ public class PlayingMatch1 extends AppCompatActivity implements View.OnClickList
             currentPlayer.setMatchOrTournamentId(null);
             players.child(currentPlayer.getUsername()).setValue(currentPlayer);
 
-            Match newMatch = new Match();
-
             if (currentMatch.getPlayer1().equals(currentPlayer.getUsername()))
-            {
-                currentMatch.setPlayer1(null);
-                newMatch = new Match(currentMatch.getUuid(), currentMatch.getGame(), currentMatch.getGameMode(),
-                        currentMatch.getDevice(), currentMatch.getMoneyDeposited(), currentMatch.getPlayer2());
+                currentMatch.setPlayer1(currentMatch.getPlayer2());
+            currentMatch.setPlayer2(null);
 
-            }
-            else if (currentMatch.getPlayer2().equals(currentPlayer.getUsername()))
-            {
-                currentMatch.setPlayer2(null);
-                newMatch = new Match(currentMatch.getUuid(), currentMatch.getGame(), currentMatch.getGameMode(),
-                        currentMatch.getDevice(), currentMatch.getMoneyDeposited(), currentMatch.getPlayer1());
 
-            }
+            playersSearching.child(currentMatch.getUuid()).setValue(currentMatch);
 
-            currentPlayer.setMatchOrTournamentId(null);
-
-            playersSearching.child(newMatch.getUuid()).setValue(newMatch);
-            players.child(currentPlayer.getUsername()).setValue(currentPlayer);
             matches.child(currentMatch.getUuid()).removeValue();
-
-            Intent intent = new Intent(this, Home.class);
-            intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-            intent.putExtra("currentPlayer", currentPlayer);
-            startActivity(intent);
-            PlayingMatch1.this.finish();
 
         }
     }
