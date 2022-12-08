@@ -25,7 +25,7 @@ import model.Match;
 import model.Player;
 
 public class PlayingMatch1 extends AppCompatActivity implements View.OnClickListener
-        {
+{
 
     Button btnReady, btnCancel;
 
