@@ -7,7 +7,9 @@
     android:layout_height="match_parent"
     tools:context=".PlayingMatch1"
     android:orientation="vertical"
-    android:background="@drawable/solidgray">
+    android:background="@drawable/solidgray"
+    android:noHistory="true"
+    >
 
 
     <LinearLayout

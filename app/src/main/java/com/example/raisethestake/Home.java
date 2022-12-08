@@ -113,8 +113,10 @@ public class Home extends AppCompatActivity implements ChildEventListener, View.
             case R.id.btnFindMatch:
                 Intent i = new Intent(this, FindMatch.class);
                 i.putExtra("currentPlayer", currentPlayer);
+                i.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK);
+                i.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                finish();
                 startActivity(i);
-                Home.this.finish();
                 break;
         }
     }

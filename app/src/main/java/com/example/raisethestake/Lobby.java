@@ -106,9 +106,11 @@ public class Lobby extends AppCompatActivity implements ValueEventListener, View
                 {
                     currentPlayer = snapshotPlayer;
                     Intent i = new Intent(context, PlayingMatch1.class);
+                    i.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK);
+                    i.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
                     i.putExtra("currentPlayer", currentPlayer);
+                    finish();
                     startActivity(i);
-                    Lobby.this.finish();
 
                 }
 
@@ -200,8 +202,10 @@ public class Lobby extends AppCompatActivity implements ValueEventListener, View
 
                 Intent i = new Intent(context, PlayingMatch1.class);
                 i.putExtra("currentPlayer", currentPlayer);
+                i.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK);
+                i.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                finish();
                 startActivity(i);
-                Lobby.this.finish();
 
             }
 

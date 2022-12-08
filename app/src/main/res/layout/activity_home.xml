@@ -8,6 +8,7 @@
     tools:context=".Home"
     android:orientation="vertical"
     android:background="@drawable/solidgray"
+    android:noHistory="true"
     >
 
 
