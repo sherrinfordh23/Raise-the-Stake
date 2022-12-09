@@ -71,13 +71,15 @@ public class PlayingMatch1 extends AppCompatActivity implements View.OnClickList
                 if (snapshot.getValue(Match.class).getUuid().equals(currentPlayer.getMatchOrTournamentId()))
                 {
                     currentMatch = snapshot.getValue(Match.class);
-
                 }
             }
 
             @Override
             public void onChildChanged(@NonNull DataSnapshot snapshot, @Nullable String previousChildName) {
-
+                if (snapshot.getValue(Match.class).getUuid().equals(currentPlayer.getMatchOrTournamentId()))
+                {
+                    currentMatch = snapshot.getValue(Match.class);
+                }
             }
 
             @Override
@@ -162,7 +164,6 @@ public class PlayingMatch1 extends AppCompatActivity implements View.OnClickList
                 break;
         }
 
-        Toast.makeText(this, currentMatch.toString(), Toast.LENGTH_LONG).show();
     }
 
     private void cancel(View view)
@@ -178,6 +179,8 @@ public class PlayingMatch1 extends AppCompatActivity implements View.OnClickList
                 currentMatch.setPlayer2Ready(false);
 
             matches.child(currentMatch.getUuid()).setValue(currentMatch);
+
+            Toast.makeText(this, "Cancel 1 triggered", Toast.LENGTH_SHORT).show();
         }
         else {
             // Cancel the match
@@ -194,6 +197,8 @@ public class PlayingMatch1 extends AppCompatActivity implements View.OnClickList
 
             matches.child(currentMatch.getUuid()).removeValue();
 
+            Toast.makeText(this, "Cancelled 2 triggered", Toast.LENGTH_SHORT).show();
+
         }
     }
 
@@ -209,6 +214,7 @@ public class PlayingMatch1 extends AppCompatActivity implements View.OnClickList
 
 
         matches.child(currentMatch.getUuid()).setValue(currentMatch);
+        Toast.makeText(this, "Ready 1 triggered", Toast.LENGTH_SHORT).show();
 
 
     }
