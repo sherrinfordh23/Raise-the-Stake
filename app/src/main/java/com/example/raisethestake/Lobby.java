@@ -65,6 +65,11 @@ public class Lobby extends AppCompatActivity implements ValueEventListener, View
         currentPlayer = (Player) getIntent().getExtras().getSerializable("currentPlayer");
         currentMatch = (Match) getIntent().getExtras().getSerializable("currentMatch");
 
+        tvGame.setText(currentMatch.getGame());
+        tvGameMode.setText(currentMatch.getGameMode());
+        tvDevice.setText(currentMatch.getDevice());
+        edAmount.setText(String.valueOf(currentMatch.getMoneyDeposited()));
+
         playerSearching.addListenerForSingleValueEvent(this);
         matches.addChildEventListener(new ChildEventListener() {
             @Override
@@ -78,8 +83,7 @@ public class Lobby extends AppCompatActivity implements ValueEventListener, View
                 intent.putExtra("currentPlayer", currentPlayer);
                 intent.putExtra("currentMatch", match);
                 finish();
-                startActivity(intent
-                );
+                startActivity(intent);
             }
 
             @Override
@@ -127,8 +131,6 @@ public class Lobby extends AppCompatActivity implements ValueEventListener, View
                 matches.child(newMatch.getUuid()).setValue(newMatch);
                 playerSearching.child(oneMatch.getUuid()).removeValue();
                 playerSearching.child(currentMatch.getUuid()).removeValue();
-
-
             }
 
         }
@@ -152,7 +154,14 @@ public class Lobby extends AppCompatActivity implements ValueEventListener, View
     }
 
     private void cancel() {
-
+        currentPlayer.setMatchOrTournamentId(null);
+        players.child(currentPlayer.getUsername()).setValue(currentPlayer);
+        playerSearching.child(currentMatch.getUuid()).removeValue();
+        Intent intent = new Intent(this, Home.class);
+        intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK);
+        intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+        intent.putExtra("currentPlayer", currentPlayer);
+        startActivity(intent);
         finish();
     }
 }

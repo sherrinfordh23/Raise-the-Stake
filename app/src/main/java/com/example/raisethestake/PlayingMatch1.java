@@ -55,9 +55,6 @@ public class PlayingMatch1 extends AppCompatActivity implements View.OnClickList
         currentPlayer = (Player) getIntent().getExtras().getSerializable("currentPlayer");
         currentMatch = (Match) getIntent().getExtras().getSerializable("currentMatch");
 
-        Toast.makeText(this, "player: " + currentPlayer.getMatchOrTournamentId(), Toast.LENGTH_SHORT).show();
-        Toast.makeText(this, "match: " + currentMatch.getUuid(), Toast.LENGTH_LONG).show();
-
         btnReady = findViewById(R.id.buttonReady);
         btnReady.setOnClickListener(this);
         btnCancel = findViewById(R.id.btnCancel);
@@ -105,22 +102,20 @@ public class PlayingMatch1 extends AppCompatActivity implements View.OnClickList
             public void onChildAdded(@NonNull DataSnapshot snapshot, @Nullable String previousChildName) {
                 Match playersSearchingMatch = snapshot.getValue(Match.class);
 
-                if (playersSearchingMatch.getPlayer1().equals(currentPlayer.getUsername()))
+                if (playersSearchingMatch.getUuid().equals(currentPlayer.getMatchOrTournamentId()) && playersSearchingMatch.getPlayer1().equals(currentPlayer.getUsername()))
                 {
+
                     Intent intent = new Intent(PlayingMatch1.this, Lobby.class);
                     intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK);
                     intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
                     intent.putExtra("currentPlayer", currentPlayer);
                     intent.putExtra("currentMatch", playersSearchingMatch);
+                    finish();
                     startActivity(intent);
                 }
                 else
                 {
-                    Intent intent = new Intent(PlayingMatch1.this, Home.class);
-                    intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK);
-                    intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-                    intent.putExtra("currentPlayer", currentPlayer);
-                    startActivity(intent);
+
                 }
 
             }
@@ -195,8 +190,13 @@ public class PlayingMatch1 extends AppCompatActivity implements View.OnClickList
 
 
             playersSearching.child(currentMatch.getUuid()).setValue(currentMatch);
-
             matches.child(currentMatch.getUuid()).removeValue();
+            Intent intent = new Intent(PlayingMatch1.this, Home.class);
+            intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK);
+            intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+            intent.putExtra("currentPlayer", currentPlayer);
+            finish();
+            startActivity(intent);
 
         }
     }

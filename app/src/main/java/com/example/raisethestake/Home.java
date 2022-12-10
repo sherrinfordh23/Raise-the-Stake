@@ -19,10 +19,12 @@ import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
 import java.util.Arrays;
 
+import model.Match;
 import model.Player;
 import model.Tournament;
 import model.TournamentDisplayAdapter;
@@ -35,8 +37,11 @@ public class Home extends AppCompatActivity implements ChildEventListener, View.
 
     FirebaseDatabase root = FirebaseDatabase.getInstance();
     DatabaseReference tournaments = root.getReference("Tournaments");
+    DatabaseReference matches = root.getReference("Matches");
+    DatabaseReference playersSearching = root.getReference("PlayersSearching");
     ArrayList<Tournament> listOfTournaments;
     TournamentDisplayAdapter adapter;
+
 
     Player currentPlayer;
 
@@ -66,6 +71,57 @@ public class Home extends AppCompatActivity implements ChildEventListener, View.
 
         btnFindMatch = findViewById(R.id.btnFindMatch);
         btnFindMatch.setOnClickListener(this);
+
+        if (currentPlayer.getMatchOrTournamentId() != null)
+        {
+            matches.child(currentPlayer.getMatchOrTournamentId()).addListenerForSingleValueEvent(new ValueEventListener() {
+                @Override
+                public void onDataChange(@NonNull DataSnapshot snapshot) {
+                    if (snapshot.exists())
+                    {
+                        Match match = snapshot.getValue(Match.class);
+
+                        Intent intent = new Intent(Home.this, PlayingMatch1.class);
+                        intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK);
+                        intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                        intent.putExtra("currentPlayer", currentPlayer);
+                        intent.putExtra("currentMatch", match);
+                        finish();
+                        startActivity(intent);
+                    }
+                }
+
+                @Override
+                public void onCancelled(@NonNull DatabaseError error) {
+
+                }
+            });
+
+            playersSearching.child(currentPlayer.getMatchOrTournamentId()).addListenerForSingleValueEvent(new ValueEventListener() {
+                @Override
+                public void onDataChange(@NonNull DataSnapshot snapshot) {
+                    if (snapshot.exists())
+                    {
+                        Match match = snapshot.getValue(Match.class);
+
+                        Intent intent = new Intent(Home.this, Lobby.class);
+                        intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK);
+                        intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                        intent.putExtra("currentPlayer", currentPlayer);
+                        intent.putExtra("currentMatch", match);
+                        finish();
+                        startActivity(intent);
+                    }
+                }
+
+                @Override
+                public void onCancelled(@NonNull DatabaseError error) {
+
+                }
+            });
+
+
+        }
 
 
     }
