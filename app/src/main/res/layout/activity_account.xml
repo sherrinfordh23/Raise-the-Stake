@@ -75,15 +75,15 @@
                             android:layout_weight="1"
                             android:orientation="vertical"
                             android:gravity="right|center">
-                    <TextView
-                        android:id="@+id/txtUserName"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:gravity="right"
-                        android:text="Username"
-                        android:textColor="@color/black"
-                        android:textSize="22sp"
-                        android:textStyle="bold" />
+                            <TextView
+                                android:id="@+id/txtUserName"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:gravity="right"
+                                android:text="Username"
+                                android:textColor="@color/black"
+                                android:textSize="22sp"
+                                android:textStyle="bold" />
                         </LinearLayout>
                     </LinearLayout>
 
@@ -127,20 +127,20 @@
                             android:layout_gravity="center"
                             android:gravity="center">
 
-                    <TextView
-                        android:id="@+id/texFollower"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:textStyle="bold"
-                        android:textColor="@color/black"
-                        android:text="Followers" />
-                    <TextView
-                        android:id="@+id/textView4"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:textStyle="bold"
-                        android:textColor="@color/black"
-                        android:text="2" />
+                            <TextView
+                                android:id="@+id/texFollower"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:textStyle="bold"
+                                android:textColor="@color/black"
+                                android:text="Followers" />
+                            <TextView
+                                android:id="@+id/textView4"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:textStyle="bold"
+                                android:textColor="@color/black"
+                                android:text="2" />
                         </LinearLayout>
                     </LinearLayout>
                 </LinearLayout>
@@ -305,7 +305,7 @@
             app:srcCompat="@drawable/ic_baseline_home_24"
             tools:ignore="TouchTargetSizeCheck"
             android:layout_weight="1"
-            android:background="background:@null"
+            android:background="@android:color/transparent"
             />
 
         <Space
@@ -321,7 +321,7 @@
             app:srcCompat="@drawable/ic_baseline_search_24"
             tools:ignore="TouchTargetSizeCheck"
             android:layout_weight="1"
-            android:background="background:@null"/>
+            android:background="@android:color/transparent"/>
 
 
         <Space
@@ -335,7 +335,7 @@
             app:srcCompat="@drawable/ic_baseline_person_24"
             tools:ignore="TouchTargetSizeCheck"
             android:layout_weight="1"
-            android:background="background:@null"/>
+            android:background="@android:color/transparent"/>
     </LinearLayout>
 
 </LinearLayout>

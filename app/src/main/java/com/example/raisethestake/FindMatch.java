@@ -133,6 +133,7 @@ public class FindMatch extends AppCompatActivity implements View.OnClickListener
 
                 Intent intent = new Intent(this, Lobby.class);
                 intent.putExtra("currentPlayer", currentPlayer);
+                intent.putExtra("currentMatch", newMatch);
                 intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK);
                 intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
                 finish();

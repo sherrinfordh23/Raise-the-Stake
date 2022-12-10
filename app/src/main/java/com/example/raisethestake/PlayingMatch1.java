@@ -53,6 +53,10 @@ public class PlayingMatch1 extends AppCompatActivity implements View.OnClickList
     private void initialize()
     {
         currentPlayer = (Player) getIntent().getExtras().getSerializable("currentPlayer");
+        currentMatch = (Match) getIntent().getExtras().getSerializable("currentMatch");
+
+        Toast.makeText(this, "player: " + currentPlayer.getMatchOrTournamentId(), Toast.LENGTH_SHORT).show();
+        Toast.makeText(this, "match: " + currentMatch.getUuid(), Toast.LENGTH_LONG).show();
 
         btnReady = findViewById(R.id.buttonReady);
         btnReady.setOnClickListener(this);
@@ -68,10 +72,6 @@ public class PlayingMatch1 extends AppCompatActivity implements View.OnClickList
             @Override
             public void onChildAdded(@NonNull DataSnapshot snapshot, @Nullable String previousChildName) {
 
-                if (snapshot.getValue(Match.class).getUuid().equals(currentPlayer.getMatchOrTournamentId()))
-                {
-                    currentMatch = snapshot.getValue(Match.class);
-                }
             }
 
             @Override
@@ -111,6 +111,7 @@ public class PlayingMatch1 extends AppCompatActivity implements View.OnClickList
                     intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK);
                     intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
                     intent.putExtra("currentPlayer", currentPlayer);
+                    intent.putExtra("currentMatch", playersSearchingMatch);
                     startActivity(intent);
                 }
                 else
@@ -197,8 +198,6 @@ public class PlayingMatch1 extends AppCompatActivity implements View.OnClickList
 
             matches.child(currentMatch.getUuid()).removeValue();
 
-            Toast.makeText(this, "Cancelled 2 triggered", Toast.LENGTH_SHORT).show();
-
         }
     }
 
@@ -214,8 +213,6 @@ public class PlayingMatch1 extends AppCompatActivity implements View.OnClickList
 
 
         matches.child(currentMatch.getUuid()).setValue(currentMatch);
-        Toast.makeText(this, "Ready 1 triggered", Toast.LENGTH_SHORT).show();
-
 
     }
 }

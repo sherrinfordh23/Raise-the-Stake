@@ -41,7 +41,7 @@ public class Lobby extends AppCompatActivity implements ValueEventListener, View
     DatabaseReference players = root.child("Players");
 
     Player currentPlayer;
-    Match match;
+    Match currentMatch;
 
     Context context = this;
 
@@ -63,57 +63,27 @@ public class Lobby extends AppCompatActivity implements ValueEventListener, View
         btnCancel.setOnClickListener(this);
 
         currentPlayer = (Player) getIntent().getExtras().getSerializable("currentPlayer");
+        currentMatch = (Match) getIntent().getExtras().getSerializable("currentMatch");
 
-
-        // Fetching match object in PlayersSearching to display values in text fields
-        playerSearching.child(currentPlayer.getMatchOrTournamentId())
-                .addListenerForSingleValueEvent(new ValueEventListener() {
-                    @Override
-                    public void onDataChange(@NonNull DataSnapshot snapshot) {
-                        if (snapshot.exists())
-                        {
-                            match = snapshot.getValue(Match.class);
-                            if (match.getUuid().equals(currentPlayer.getMatchOrTournamentId()))
-                            {
-                                tvGame.setText(match.getGame());
-                                tvGameMode.setText(match.getGameMode());
-                                tvDevice.setText(match.getDevice());
-                                edAmount.setText(String.valueOf(match.getMoneyDeposited()));
-                            }
-
-
-                        }
-                    }
-
-                    @Override
-                    public void onCancelled(@NonNull DatabaseError error) {
-
-                    }
-                });
-
-        //The side of the person who is waiting at the lobby
-        players.addChildEventListener(new ChildEventListener() {
+        playerSearching.addListenerForSingleValueEvent(this);
+        matches.addChildEventListener(new ChildEventListener() {
             @Override
             public void onChildAdded(@NonNull DataSnapshot snapshot, @Nullable String previousChildName) {
-
+                Match match = snapshot.getValue(Match.class);
+                currentPlayer.setMatchOrTournamentId(match.getUuid());
+                players.child(currentPlayer.getUsername()).setValue(currentPlayer);
+                Intent intent = new Intent(Lobby.this, PlayingMatch1.class);
+                intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK);
+                intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                intent.putExtra("currentPlayer", currentPlayer);
+                intent.putExtra("currentMatch", match);
+                finish();
+                startActivity(intent
+                );
             }
 
             @Override
             public void onChildChanged(@NonNull DataSnapshot snapshot, @Nullable String previousChildName) {
-
-                Player snapshotPlayer = snapshot.getValue(Player.class);
-                if (snapshotPlayer.getUsername().equals(currentPlayer.getUsername()))
-                {
-                    currentPlayer = snapshotPlayer;
-                    Intent i = new Intent(context, PlayingMatch1.class);
-                    i.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK);
-                    i.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-                    i.putExtra("currentPlayer", currentPlayer);
-                    finish();
-                    startActivity(i);
-
-                }
-
 
             }
 
@@ -129,12 +99,9 @@ public class Lobby extends AppCompatActivity implements ValueEventListener, View
 
             @Override
             public void onCancelled(@NonNull DatabaseError error) {
+
             }
         });
-
-        playerSearching.addListenerForSingleValueEvent(this);
-
-
 
     }
 
@@ -146,7 +113,7 @@ public class Lobby extends AppCompatActivity implements ValueEventListener, View
         for (DataSnapshot ds : snapshot.getChildren())
         {
             Match oneMatch = ds.getValue(Match.class);
-            if(oneMatch.equals(match))
+            if(oneMatch.equals(currentMatch))
             {
                 // The side of the person who finds the criteria after the criteria was already set
                 Match newMatch = new Match();
@@ -155,57 +122,12 @@ public class Lobby extends AppCompatActivity implements ValueEventListener, View
                 newMatch.setDevice(oneMatch.getDevice());
                 newMatch.setMoneyDeposited(oneMatch.getMoneyDeposited());
                 newMatch.setPlayer1(oneMatch.getPlayer1());
-                newMatch.setPlayer2(match.getPlayer1());
+                newMatch.setPlayer2(currentMatch.getPlayer1());
 
                 matches.child(newMatch.getUuid()).setValue(newMatch);
                 playerSearching.child(oneMatch.getUuid()).removeValue();
-                playerSearching.child(match.getUuid()).removeValue();
+                playerSearching.child(currentMatch.getUuid()).removeValue();
 
-
-                players.child(newMatch.getPlayer1()).
-                        addListenerForSingleValueEvent(new ValueEventListener() {
-                            @Override
-                            public void onDataChange(@NonNull DataSnapshot snapshot) {
-                                if (snapshot.exists())
-                                {
-                                    Player player = snapshot.getValue(Player.class);
-                                    player.setMatchOrTournamentId(newMatch.getUuid());
-                                    players.child(player.getUsername()).setValue(player);
-
-                                }
-                            }
-
-                            @Override
-                            public void onCancelled(@NonNull DatabaseError error) {
-
-                            }
-                        });
-
-                players.child(newMatch.getPlayer2()).
-                        addListenerForSingleValueEvent(new ValueEventListener() {
-                            @Override
-                            public void onDataChange(@NonNull DataSnapshot snapshot) {
-                                if (snapshot.exists())
-                                {
-                                    Player player = snapshot.getValue(Player.class);
-                                    player.setMatchOrTournamentId(newMatch.getUuid());
-                                    players.child(player.getUsername()).setValue(player);
-                                }
-                            }
-
-                            @Override
-                            public void onCancelled(@NonNull DatabaseError error) {
-
-                            }
-                        });
-
-
-                Intent i = new Intent(context, PlayingMatch1.class);
-                i.putExtra("currentPlayer", currentPlayer);
-                i.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK);
-                i.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-                finish();
-                startActivity(i);
 
             }
 
@@ -224,8 +146,13 @@ public class Lobby extends AppCompatActivity implements ValueEventListener, View
         switch (id)
         {
             case R.id.btnCancel:
-
+                cancel();
                 break;
         }
+    }
+
+    private void cancel() {
+
+        finish();
     }
 }

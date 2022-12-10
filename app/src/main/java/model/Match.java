@@ -2,9 +2,10 @@ package model;
 
 import androidx.annotation.Nullable;
 
+import java.io.Serializable;
 import java.util.UUID;
 
-public class Match {
+public class Match implements Serializable {
 
     private String uuid;
     private String game;

@@ -14,6 +14,9 @@
         android:theme="@style/Theme.RaiseTheStake"
         tools:targetApi="31">
         <activity
+            android:name=".account"
+            android:exported="false" />
+        <activity
             android:name=".Lobby"
             android:exported="false" />
         <activity
