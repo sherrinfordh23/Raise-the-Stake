@@ -10,6 +10,7 @@ import android.provider.ContactsContract;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
+import android.widget.ImageButton;
 import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -34,6 +35,7 @@ public class Home extends AppCompatActivity implements ChildEventListener, View.
     ListView lvTournaments;
     Button btnFindMatch;
     TextView tvUsername, tvBalance;
+    ImageButton btnHome, btnPlayerSearch, btnDashboard;
 
     FirebaseDatabase root = FirebaseDatabase.getInstance();
     DatabaseReference tournaments = root.getReference("Tournaments");
@@ -71,6 +73,12 @@ public class Home extends AppCompatActivity implements ChildEventListener, View.
 
         btnFindMatch = findViewById(R.id.btnFindMatch);
         btnFindMatch.setOnClickListener(this);
+        btnHome = findViewById(R.id.btnHome);
+        btnPlayerSearch = findViewById(R.id.btnPlayerSearch);
+        btnDashboard = findViewById(R.id.btnDashboard);
+        btnHome.setOnClickListener(this);
+        btnPlayerSearch.setOnClickListener(this);
+        btnDashboard.setOnClickListener(this);
 
         if (currentPlayer.getMatchOrTournamentId() != null)
         {
@@ -164,15 +172,40 @@ public class Home extends AppCompatActivity implements ChildEventListener, View.
     public void onClick(View view)
     {
         int id = view.getId();
+        Intent intent;
         switch (id)
         {
             case R.id.btnFindMatch:
-                Intent i = new Intent(this, FindMatch.class);
-                i.putExtra("currentPlayer", currentPlayer);
-                i.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK);
-                i.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                intent = new Intent(this, FindMatch.class);
+                intent.putExtra("currentPlayer", currentPlayer);
+                intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK);
+                intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
                 finish();
-                startActivity(i);
+                startActivity(intent);
+                break;
+            case R.id.btnHome:
+                intent = new Intent(this, Home.class);
+                intent.putExtra("currentPlayer", currentPlayer);
+                intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK);
+                intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                finish();
+                startActivity(intent);
+                break;
+            case R.id.btnPlayerSearch:
+                intent = new Intent(this, SearchForPlayer.class);
+                intent.putExtra("currentPlayer", currentPlayer);
+                intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK);
+                intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                finish();
+                startActivity(intent);
+                break;
+            case R.id.btnDashboard:
+                intent = new Intent(this, account.class);
+                intent.putExtra("currentPlayer", currentPlayer);
+                intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK);
+                intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                finish();
+                startActivity(intent);
                 break;
         }
     }

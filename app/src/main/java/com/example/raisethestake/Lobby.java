@@ -12,6 +12,7 @@ import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageButton;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -34,6 +35,7 @@ public class Lobby extends AppCompatActivity implements ValueEventListener, View
     TextView tvGame, tvGameMode, tvDevice;
     EditText edAmount;
     Button btnCancel;
+    ImageButton btnHome, btnPlayerSearching, btnDashboard;
 
     DatabaseReference root = FirebaseDatabase.getInstance().getReference();
     DatabaseReference matches = root.child("Matches");
@@ -61,6 +63,12 @@ public class Lobby extends AppCompatActivity implements ValueEventListener, View
         edAmount = findViewById(R.id.edAmount);
         btnCancel = findViewById(R.id.btnCancel);
         btnCancel.setOnClickListener(this);
+        btnHome = findViewById(R.id.btnHome);
+        btnPlayerSearching = findViewById(R.id.btnPlayerSearch);
+        btnDashboard = findViewById(R.id.btnDashboard);
+        btnHome.setOnClickListener(this);
+        btnPlayerSearching.setOnClickListener(this);
+        btnDashboard.setOnClickListener(this);
 
         currentPlayer = (Player) getIntent().getExtras().getSerializable("currentPlayer");
         currentMatch = (Match) getIntent().getExtras().getSerializable("currentMatch");
@@ -145,10 +153,35 @@ public class Lobby extends AppCompatActivity implements ValueEventListener, View
     @Override
     public void onClick(View view) {
         int id = view.getId();
+        Intent intent;
         switch (id)
         {
             case R.id.btnCancel:
                 cancel();
+                break;
+            case R.id.btnHome:
+                intent = new Intent(this, Home.class);
+                intent.putExtra("currentPlayer", currentPlayer);
+                intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK);
+                intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                finish();
+                startActivity(intent);
+                break;
+            case R.id.btnPlayerSearch:
+                intent = new Intent(this, SearchForPlayer.class);
+                intent.putExtra("currentPlayer", currentPlayer);
+                intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK);
+                intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                finish();
+                startActivity(intent);
+                break;
+            case R.id.btnDashboard:
+                intent = new Intent(this, account.class);
+                intent.putExtra("currentPlayer", currentPlayer);
+                intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK);
+                intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                finish();
+                startActivity(intent);
                 break;
         }
     }

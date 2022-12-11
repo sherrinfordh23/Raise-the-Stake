@@ -66,7 +66,9 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             tools:srcCompat="@tools:sample/avatars"
-            android:layout_margin="30dp"/>
+            android:layout_margin="30dp"
+            
+            />
     </LinearLayout>
 
     <Space
@@ -430,7 +432,7 @@ x
         android:gravity="center">
 
         <ImageButton
-            android:id="@+id/imageButtonHome"
+            android:id="@+id/btnHome"
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
             app:srcCompat="@drawable/ic_baseline_home_24"
@@ -446,7 +448,7 @@ x
 
 
         <ImageButton
-            android:id="@+id/imageButtonSearch"
+            android:id="@+id/btnPlayerSearch"
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
             app:srcCompat="@drawable/ic_baseline_search_24"
@@ -461,6 +463,7 @@ x
             android:layout_weight="1"></Space>
 
         <ImageButton
+            android:id="@+id/btnDashboard"
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
             app:srcCompat="@drawable/ic_baseline_person_24"

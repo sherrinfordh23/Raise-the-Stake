@@ -8,6 +8,7 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageButton;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.TextView;
@@ -31,6 +32,7 @@ public class FindMatch extends AppCompatActivity implements View.OnClickListener
     Button btnFindMatch;
     RadioGroup rgDevice, rgGameMode;
     RadioButton rbPS5, rbXbox, rbMyTeam, rbQuickMatch;
+    ImageButton btnHome, btnPlayerSearch, btnDashboard;
 
     Player currentPlayer;
 
@@ -62,6 +64,10 @@ public class FindMatch extends AppCompatActivity implements View.OnClickListener
         rbMyTeam = findViewById(R.id.rbMyTeam);
         rbQuickMatch = findViewById(R.id.rbQuickMatch);
 
+        btnHome = findViewById(R.id.btnHome);
+        btnPlayerSearch = findViewById(R.id.btnPlayerSearch);
+        btnDashboard = findViewById(R.id.btnDashboard);
+
         rgDevice = findViewById(R.id.rgDevice);
         rbPS5 = findViewById(R.id.rbPS5);
         rbXbox = findViewById(R.id.rbXbox);
@@ -70,16 +76,44 @@ public class FindMatch extends AppCompatActivity implements View.OnClickListener
 
         btnFindMatch = findViewById(R.id.btnFindMatch);
         btnFindMatch.setOnClickListener(this);
+        btnHome.setOnClickListener(this);
+        btnPlayerSearch.setOnClickListener(this);
+        btnDashboard.setOnClickListener(this);
     }
 
     @Override
     public void onClick(View view)
     {
+        Intent intent;
         int id = view.getId();
         switch (id)
         {
             case R.id.btnFindMatch:
                 createMatch(view);
+                break;
+            case R.id.btnHome:
+                intent = new Intent(this, Home.class);
+                intent.putExtra("currentPlayer", currentPlayer);
+                intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK);
+                intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                finish();
+                startActivity(intent);
+                break;
+            case R.id.btnPlayerSearch:
+                intent = new Intent(this, SearchForPlayer.class);
+                intent.putExtra("currentPlayer", currentPlayer);
+                intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK);
+                intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                finish();
+                startActivity(intent);
+                break;
+            case R.id.btnDashboard:
+                intent = new Intent(this, account.class);
+                intent.putExtra("currentPlayer", currentPlayer);
+                intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK);
+                intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                finish();
+                startActivity(intent);
                 break;
         }
     }

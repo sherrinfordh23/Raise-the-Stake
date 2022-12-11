@@ -3,10 +3,12 @@ package com.example.raisethestake;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageButton;
 import android.widget.RadioButton;
 import android.widget.Toast;
 
@@ -23,6 +25,7 @@ public class Withdraw extends AppCompatActivity implements View.OnClickListener 
     EditText edAmount;
     RadioButton rbCreditDebit, rbPaypal;
     Button btnWithdraw;
+    ImageButton btnHome, btnPlayerSearch, btnDashboard;
 
     FirebaseDatabase root = FirebaseDatabase.getInstance();
     DatabaseReference players = root.getReference("Players");
@@ -44,6 +47,12 @@ public class Withdraw extends AppCompatActivity implements View.OnClickListener 
         rbCreditDebit = findViewById((R.id.rbCreditDebit));
         rbPaypal = findViewById(R.id.rbPaypal);
         btnWithdraw = findViewById(R.id.btnWithdraw);
+        btnHome = findViewById(R.id.btnHome);
+        btnPlayerSearch = findViewById(R.id.btnPlayerSearch);
+        btnDashboard = findViewById(R.id.btnDashboard);
+        btnHome.setOnClickListener(this);
+        btnPlayerSearch.setOnClickListener(this);
+        btnDashboard.setOnClickListener(this);
 
         rbCreditDebit.setOnClickListener(this);
         rbPaypal.setOnClickListener(this);
@@ -55,6 +64,7 @@ public class Withdraw extends AppCompatActivity implements View.OnClickListener 
 
     @Override
     public void onClick(View view) {
+        Intent intent;
         switch (view.getId())
         {
             case R.id.rbCreditDebit:
@@ -65,6 +75,30 @@ public class Withdraw extends AppCompatActivity implements View.OnClickListener 
                 break;
             case R.id.btnWithdraw:
                 withdraw();
+                break;
+            case R.id.btnHome:
+                intent = new Intent(this, Home.class);
+                intent.putExtra("currentPlayer", currentPlayer);
+                intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK);
+                intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                finish();
+                startActivity(intent);
+                break;
+            case R.id.btnPlayerSearch:
+                intent = new Intent(this, SearchForPlayer.class);
+                intent.putExtra("currentPlayer", currentPlayer);
+                intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK);
+                intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                finish();
+                startActivity(intent);
+                break;
+            case R.id.btnDashboard:
+                intent = new Intent(this, account.class);
+                intent.putExtra("currentPlayer", currentPlayer);
+                intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK);
+                intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                finish();
+                startActivity(intent);
                 break;
         }
     }

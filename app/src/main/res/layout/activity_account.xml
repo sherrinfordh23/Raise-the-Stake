@@ -55,7 +55,7 @@
                             android:gravity="left">
 
                             <Button
-                                android:id="@+id/buttonSignOut"
+                                android:id="@+id/btnSignOut"
                                 android:layout_width="80dp"
                                 android:layout_height="40dp"
                                 android:text="Sign Out"
@@ -76,7 +76,7 @@
                             android:orientation="vertical"
                             android:gravity="right|center">
                             <TextView
-                                android:id="@+id/txtUserName"
+                                android:id="@+id/tvUsername"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:gravity="right"
@@ -109,7 +109,7 @@
                                 android:textColor="@color/black"
                                 android:text="Following" />
                             <TextView
-                                android:id="@+id/tetFollowing"
+                                android:id="@+id/tvFollowingCount"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:textStyle="bold"
@@ -135,7 +135,7 @@
                                 android:textColor="@color/black"
                                 android:text="Followers" />
                             <TextView
-                                android:id="@+id/textView4"
+                                android:id="@+id/tvFollowerCount"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:textStyle="bold"
@@ -150,11 +150,12 @@
         </LinearLayout>
 
         <ImageView
-            android:id="@+id/imageView"
-            android:layout_width="match_parent"
+            android:layout_weight="3"
+            android:id="@+id/imgProfilePicture"
             android:layout_height="wrap_content"
-            tools:srcCompat="@tools:sample/avatars"
-            android:layout_margin="30dp"/>
+            android:layout_margin="30dp"
+            android:src="@drawable/defaultavatar"
+            android:layout_width="wrap_content"/>
 
     </LinearLayout>
 
@@ -179,7 +180,7 @@
             android:layout_weight="1"/>
 
         <TextView
-            android:id="@+id/textEmail"
+            android:id="@+id/tvEmail"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_weight="1"
@@ -246,10 +247,10 @@
         android:gravity="center"
         android:orientation="vertical">
         <Button
-            android:id="@+id/buttonDetails"
+            android:id="@+id/btnDeposit"
             android:layout_width="350dp"
             android:layout_height="60dp"
-            android:text="Deposite"
+            android:text="Deposit"
             app:cornerRadius="8dp"
             android:layout_marginBottom="30dp"
             android:layout_gravity="center"
@@ -260,7 +261,7 @@
             android:textSize="22sp"
             />
         <Button
-            android:id="@+id/buttonWithdraw"
+            android:id="@+id/btnWithdraw"
             android:layout_width="350dp"
             android:layout_height="60dp"
             android:text="Withdraw"
@@ -299,7 +300,7 @@
         android:gravity="center">
 
         <ImageButton
-            android:id="@+id/imageButtonHome"
+            android:id="@+id/btnHome"
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
             app:srcCompat="@drawable/ic_baseline_home_24"
@@ -315,7 +316,7 @@
 
 
         <ImageButton
-            android:id="@+id/imageButtonSearch"
+            android:id="@+id/btnPlayerSearch"
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
             app:srcCompat="@drawable/ic_baseline_search_24"
@@ -330,6 +331,7 @@
             android:layout_weight="1"></Space>
 
         <ImageButton
+            android:id="@+id/btnDashboard"
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
             app:srcCompat="@drawable/ic_baseline_person_24"

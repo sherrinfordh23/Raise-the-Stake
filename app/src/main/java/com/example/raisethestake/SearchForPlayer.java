@@ -3,6 +3,7 @@ package com.example.raisethestake;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.telecom.TelecomManager;
 import android.text.Editable;
@@ -10,6 +11,7 @@ import android.text.TextWatcher;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageButton;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -30,6 +32,7 @@ public class SearchForPlayer extends AppCompatActivity implements View.OnClickLi
     EditText edSearch;
     Button btnFollow;
     Button btnChallenge;
+    ImageButton btnHome, btnPlayerSearch, btnDashboard;
 
     DatabaseReference root = FirebaseDatabase.getInstance().getReference();
     DatabaseReference players = root.child("Players");
@@ -55,11 +58,19 @@ public class SearchForPlayer extends AppCompatActivity implements View.OnClickLi
         btnFollow.setOnClickListener(this);
         edSearch.addTextChangedListener(this);
 
+        btnHome = findViewById(R.id.btnHome);
+        btnPlayerSearch = findViewById(R.id.btnPlayerSearch);
+        btnDashboard = findViewById(R.id.btnDashboard);
+        btnHome.setOnClickListener(this);
+        btnPlayerSearch.setOnClickListener(this);
+        btnDashboard.setOnClickListener(this);
+
 
     }
 
     @Override
     public void onClick(View view) {
+        Intent intent;
         switch (view.getId())
         {
             case R.id.btnFollow:
@@ -67,6 +78,30 @@ public class SearchForPlayer extends AppCompatActivity implements View.OnClickLi
                 break;
             case R.id.btnChallenge:
 
+                break;
+            case R.id.btnHome:
+                intent = new Intent(this, Home.class);
+                intent.putExtra("currentPlayer", currentPlayer);
+                intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK);
+                intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                finish();
+                startActivity(intent);
+                break;
+            case R.id.btnPlayerSearch:
+                intent = new Intent(this, SearchForPlayer.class);
+                intent.putExtra("currentPlayer", currentPlayer);
+                intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK);
+                intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                finish();
+                startActivity(intent);
+                break;
+            case R.id.btnDashboard:
+                intent = new Intent(this, account.class);
+                intent.putExtra("currentPlayer", currentPlayer);
+                intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK);
+                intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                finish();
+                startActivity(intent);
                 break;
         }
     }
@@ -87,7 +122,7 @@ public class SearchForPlayer extends AppCompatActivity implements View.OnClickLi
             ArrayList<String> playerFoundListOfFollowers = playerFound.getListOfFollowers();
             ArrayList<String> currentPlayerListOfFollowing = currentPlayer.getListOfFollowing();
 
-            if (!playerFoundListOfFollowers.contains(currentPlayer))
+            if (!playerFoundListOfFollowers.contains(currentPlayer.getUsername()))
             {
                 playerFoundListOfFollowers.add(currentPlayer.getUsername());
                 currentPlayerListOfFollowing.add(playerFound.getUsername());

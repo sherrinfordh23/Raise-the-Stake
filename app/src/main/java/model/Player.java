@@ -16,6 +16,7 @@ public class Player implements Serializable {
     private Profile profile;
     private ArrayList<String> paymentMethods;
     private String matchOrTournamentId;
+    private String profilePicture;
 
 
     public Player(String username, String email, String firstName, String lastName, String password, ArrayList<String> listOfFollowers, ArrayList<String> listOfFollowing, float balance, Profile profile, ArrayList<String> paymentMethods) {
@@ -128,6 +129,14 @@ public class Player implements Serializable {
 
     public void setMatchOrTournamentId(String matchOrTournamentId) {
         this.matchOrTournamentId = matchOrTournamentId;
+    }
+
+    public String getProfilePicture() {
+        return profilePicture;
+    }
+
+    public void setProfilePicture(String profilePicture) {
+        this.profilePicture = profilePicture;
     }
 
     @Override

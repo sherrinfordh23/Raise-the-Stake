@@ -3,6 +3,7 @@ package com.example.raisethestake;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.provider.ContactsContract;
 import android.text.Editable;
@@ -10,6 +11,7 @@ import android.text.TextWatcher;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageButton;
 import android.widget.RadioButton;
 import android.widget.Toast;
 
@@ -26,6 +28,7 @@ public class Deposit extends AppCompatActivity implements View.OnClickListener, 
     RadioButton rb10, rb25, rb50, rbCreditDebit;
     EditText edAmount;
     Button btnDeposit;
+    ImageButton btnHome, btnPlayerSearch, btnDashboard;
 
     FirebaseDatabase root = FirebaseDatabase.getInstance();
     DatabaseReference players = root.getReference("Players");
@@ -50,11 +53,18 @@ public class Deposit extends AppCompatActivity implements View.OnClickListener, 
         rbCreditDebit = findViewById(R.id.rbCreditDebit);
         edAmount = findViewById(R.id.edAmount);
         btnDeposit = findViewById(R.id.btnDeposit);
+        btnHome = findViewById(R.id.btnHome);
+        btnPlayerSearch = findViewById(R.id.btnPlayerSearch);
+        btnDashboard = findViewById(R.id.btnDashboard);
+
 
         btnDeposit.setOnClickListener(this);
         rb10.setOnClickListener(this);
         rb25.setOnClickListener(this);
         rb50.setOnClickListener(this);
+        btnHome.setOnClickListener(this);
+        btnPlayerSearch.setOnClickListener(this);
+        btnDashboard.setOnClickListener(this);
 
         edAmount.addTextChangedListener(this);
 
@@ -64,6 +74,7 @@ public class Deposit extends AppCompatActivity implements View.OnClickListener, 
     @Override
     public void onClick(View view) {
 
+        Intent intent;
         switch (view.getId())
         {
             case R.id.btnDeposit:
@@ -83,6 +94,30 @@ public class Deposit extends AppCompatActivity implements View.OnClickListener, 
                 rb25.setChecked(false);
                 rb10.setChecked(false);
                 edAmount.setText(null);
+                break;
+            case R.id.btnHome:
+                intent = new Intent(this, Home.class);
+                intent.putExtra("currentPlayer", currentPlayer);
+                intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK);
+                intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                finish();
+                startActivity(intent);
+                break;
+            case R.id.btnPlayerSearch:
+                intent = new Intent(this, SearchForPlayer.class);
+                intent.putExtra("currentPlayer", currentPlayer);
+                intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK);
+                intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                finish();
+                startActivity(intent);
+                break;
+            case R.id.btnDashboard:
+                intent = new Intent(this, account.class);
+                intent.putExtra("currentPlayer", currentPlayer);
+                intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK);
+                intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                finish();
+                startActivity(intent);
                 break;
         }
 
