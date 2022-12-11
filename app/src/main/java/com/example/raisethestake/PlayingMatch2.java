@@ -24,7 +24,7 @@ public class PlayingMatch2 extends AppCompatActivity implements View.OnClickList
     Match currentMatch;
     Player currentPlayer;
     ImageButton btnHome, btnPlayerSearch, btnDashboard;
-    TextView tvUsername, tvBalance;
+    TextView tvUsername, tvBalance, tvPlayer1, tvPlayer2;
     ImageView imgProfilePicture;
 
     FirebaseDatabase root = FirebaseDatabase.getInstance();
@@ -42,6 +42,7 @@ public class PlayingMatch2 extends AppCompatActivity implements View.OnClickList
     private void initialize()
     {
         currentPlayer = (Player) getIntent().getExtras().getSerializable("currentPlayer");
+        currentMatch = (Match) getIntent().getExtras().getSerializable("currentMatch");
 
         btnMatchStarted = findViewById(R.id.buttonMatchStart);
         btnMatchStarted.setOnClickListener(this);
@@ -60,6 +61,10 @@ public class PlayingMatch2 extends AppCompatActivity implements View.OnClickList
         {
             Picasso.with(this).load(currentPlayer.getProfilePicture()).into(imgProfilePicture);
         }
+        tvPlayer1 = findViewById(R.id.tvPlayer1);
+        tvPlayer2 = findViewById(R.id.tvPlayer2);
+        tvPlayer1.setText(currentMatch.getPlayer1());
+        tvPlayer2.setText(currentMatch.getPlayer2());
     }
 
     @Override
@@ -103,7 +108,10 @@ public class PlayingMatch2 extends AppCompatActivity implements View.OnClickList
     {
         Intent intent = new Intent(this, SubmitResults.class);
         intent.putExtra("currentPlayer", currentPlayer);
+        intent.putExtra("currentMatch", currentMatch);
+        intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK);
+        intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+        finish();
         startActivity(intent);
-        PlayingMatch2.this.finish();
     }
 }
