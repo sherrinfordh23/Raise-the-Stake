@@ -4,6 +4,7 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
+import android.media.Image;
 import android.os.Bundle;
 import android.telecom.TelecomManager;
 import android.text.Editable;
@@ -12,6 +13,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageButton;
+import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -20,6 +22,7 @@ import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
+import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -28,11 +31,12 @@ import model.Player;
 
 public class SearchForPlayer extends AppCompatActivity implements View.OnClickListener, TextWatcher, ValueEventListener {
 
-    TextView tvPlayer;
+    TextView tvPlayer, tvUsername, tvBalance;
     EditText edSearch;
     Button btnFollow;
     Button btnChallenge;
     ImageButton btnHome, btnPlayerSearch, btnDashboard;
+    ImageView imgProfilePicture;
 
     DatabaseReference root = FirebaseDatabase.getInstance().getReference();
     DatabaseReference players = root.child("Players");
@@ -57,6 +61,15 @@ public class SearchForPlayer extends AppCompatActivity implements View.OnClickLi
         btnChallenge.setOnClickListener(this);
         btnFollow.setOnClickListener(this);
         edSearch.addTextChangedListener(this);
+        tvUsername = findViewById(R.id.tvUsername);
+        tvBalance = findViewById(R.id.tvBalance);
+        tvUsername.setText(currentPlayer.getUsername());
+        tvBalance.setText(String.valueOf(currentPlayer.getBalance()));
+        imgProfilePicture = findViewById(R.id.imgProfilePicture);
+        if (currentPlayer.getProfilePicture() != null)
+        {
+            Picasso.with(this).load(currentPlayer.getProfilePicture()).into(imgProfilePicture);
+        }
 
         btnHome = findViewById(R.id.btnHome);
         btnPlayerSearch = findViewById(R.id.btnPlayerSearch);

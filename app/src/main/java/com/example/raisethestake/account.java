@@ -78,6 +78,12 @@ public class account extends AppCompatActivity implements View.OnClickListener {
         btnDeposit = findViewById(R.id.btnDeposit);
         btnWithdraw = findViewById(R.id.btnWithdraw);
         imgProfilePicture = findViewById(R.id.imgProfilePicture);
+
+        if (currentPlayer.getProfilePicture() != null)
+        {
+            Picasso.with(this).load(currentPlayer.getProfilePicture()).into(imgProfilePicture);
+        }
+
         btnHome = findViewById(R.id.btnHome);
         btnPlayerSearch = findViewById(R.id.btnPlayerSearch);
         btnDashboard = findViewById(R.id.btnDashboard);

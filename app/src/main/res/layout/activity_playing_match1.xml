@@ -44,7 +44,7 @@
                     android:gravity="right|center">
 
                     <TextView
-                        android:id="@+id/tvName"
+                        android:id="@+id/tvUsername"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:gravity="right"
@@ -52,7 +52,7 @@
                         android:textStyle="bold" />
 
                     <TextView
-                        android:id="@+id/textView2"
+                        android:id="@+id/tvBalance"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="$400" />
@@ -63,11 +63,12 @@
         </LinearLayout>
 
         <ImageView
-            android:id="@+id/imageView"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            tools:srcCompat="@tools:sample/avatars"
-            android:layout_margin="30dp"/>
+            android:id="@+id/imgProfilePicture"
+            android:layout_width="70dp"
+            android:layout_height="100dp"
+            android:layout_marginTop="20dp"
+            android:src="@drawable/defaultavatar"
+            />
     </LinearLayout>
 
     <Space

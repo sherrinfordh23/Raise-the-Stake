@@ -7,9 +7,12 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageButton;
+import android.widget.ImageView;
+import android.widget.TextView;
 
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.squareup.picasso.Picasso;
 
 import model.Match;
 import model.Player;
@@ -18,6 +21,8 @@ public class SubmitResults extends AppCompatActivity implements View.OnClickList
 
     Button btnSubmitResult;
     ImageButton btnHome, btnPlayerSearch, btnDashboard;
+    TextView tvUsername, tvBalance;
+    ImageView imgProfilePicture;
 
     Match currentMatch;
     Player currentPlayer;
@@ -41,6 +46,15 @@ public class SubmitResults extends AppCompatActivity implements View.OnClickList
         btnHome = findViewById(R.id.btnHome);
         btnPlayerSearch = findViewById(R.id.btnPlayerSearch);
         btnDashboard = findViewById(R.id.btnDashboard);
+        tvUsername = findViewById(R.id.tvUsername);
+        tvBalance = findViewById(R.id.tvBalance);
+        tvUsername.setText(currentPlayer.getUsername());
+        tvBalance.setText(String.valueOf(currentPlayer.getBalance()));
+        imgProfilePicture = findViewById(R.id.imgProfilePicture);
+        if (currentPlayer.getProfilePicture() != null)
+        {
+            Picasso.with(this).load(currentPlayer.getProfilePicture()).into(imgProfilePicture);
+        }
 
         btnSubmitResult = findViewById(R.id.buttonSubmit);
         btnSubmitResult.setOnClickListener(this);

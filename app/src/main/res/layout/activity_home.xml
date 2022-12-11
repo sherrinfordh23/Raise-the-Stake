@@ -62,11 +62,11 @@
         </LinearLayout>
 
         <ImageView
-            android:id="@+id/imageView"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            tools:srcCompat="@tools:sample/avatars"
-            android:layout_margin="30dp"
+            android:id="@+id/imgProfilePicture"
+            android:layout_width="70dp"
+            android:layout_height="100dp"
+            android:src="@drawable/defaultavatar"
+            android:layout_marginTop="20dp"
             
             />
     </LinearLayout>

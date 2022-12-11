@@ -9,7 +9,9 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageButton;
+import android.widget.ImageView;
 import android.widget.RadioButton;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.google.firebase.database.DataSnapshot;
@@ -17,6 +19,9 @@ import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
+import com.squareup.picasso.Picasso;
+
+import org.w3c.dom.Text;
 
 import model.Player;
 
@@ -26,6 +31,8 @@ public class Withdraw extends AppCompatActivity implements View.OnClickListener 
     RadioButton rbCreditDebit, rbPaypal;
     Button btnWithdraw;
     ImageButton btnHome, btnPlayerSearch, btnDashboard;
+    TextView tvUsername, tvBalance;
+    ImageView imgProfilePicture;
 
     FirebaseDatabase root = FirebaseDatabase.getInstance();
     DatabaseReference players = root.getReference("Players");
@@ -43,6 +50,7 @@ public class Withdraw extends AppCompatActivity implements View.OnClickListener 
 
     private void initialize() {
 
+        currentPlayer = (Player) getIntent().getExtras().getSerializable("currentPlayer");
         edAmount = findViewById(R.id.edAmount);
         rbCreditDebit = findViewById((R.id.rbCreditDebit));
         rbPaypal = findViewById(R.id.rbPaypal);
@@ -53,12 +61,21 @@ public class Withdraw extends AppCompatActivity implements View.OnClickListener 
         btnHome.setOnClickListener(this);
         btnPlayerSearch.setOnClickListener(this);
         btnDashboard.setOnClickListener(this);
+        tvUsername = findViewById(R.id.tvUsername);
+        tvBalance = findViewById(R.id.tvBalance);
+        tvUsername.setText(currentPlayer.getUsername());
+        tvBalance.setText(String.valueOf(currentPlayer.getBalance()));
+        imgProfilePicture = findViewById(R.id.imgProfilePicture);
+        if (currentPlayer.getProfilePicture() != null)
+        {
+            Picasso.with(this).load(currentPlayer.getProfilePicture()).into(imgProfilePicture);
+        }
 
         rbCreditDebit.setOnClickListener(this);
         rbPaypal.setOnClickListener(this);
         btnWithdraw.setOnClickListener(this);
 
-        currentPlayer = (Player) getIntent().getExtras().getSerializable("currentPlayer");
+
 
     }
 

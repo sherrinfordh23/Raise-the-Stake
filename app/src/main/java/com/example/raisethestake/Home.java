@@ -11,6 +11,7 @@ import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageButton;
+import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -21,6 +22,7 @@ import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
+import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -36,6 +38,7 @@ public class Home extends AppCompatActivity implements ChildEventListener, View.
     Button btnFindMatch;
     TextView tvUsername, tvBalance;
     ImageButton btnHome, btnPlayerSearch, btnDashboard;
+    ImageView imgProfilePicture;
 
     FirebaseDatabase root = FirebaseDatabase.getInstance();
     DatabaseReference tournaments = root.getReference("Tournaments");
@@ -63,6 +66,11 @@ public class Home extends AppCompatActivity implements ChildEventListener, View.
         tvUsername = findViewById(R.id.tvUsername);
         tvBalance.setText(String.valueOf(currentPlayer.getBalance()));
         tvUsername.setText(currentPlayer.getUsername());
+        imgProfilePicture = findViewById(R.id.imgProfilePicture);
+        if (currentPlayer.getProfilePicture() != null)
+        {
+            Picasso.with(this).load(currentPlayer.getProfilePicture()).into(imgProfilePicture);
+        }
 
         lvTournaments = findViewById(R.id.lvTournaments);
         //Refactoring needed

@@ -12,7 +12,9 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageButton;
+import android.widget.ImageView;
 import android.widget.RadioButton;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.google.firebase.database.DataSnapshot;
@@ -20,6 +22,7 @@ import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
+import com.squareup.picasso.Picasso;
 
 import model.Player;
 
@@ -29,6 +32,8 @@ public class Deposit extends AppCompatActivity implements View.OnClickListener, 
     EditText edAmount;
     Button btnDeposit;
     ImageButton btnHome, btnPlayerSearch, btnDashboard;
+    ImageView imgProfilePicture;
+    TextView tvUsername, tvBalance;
 
     FirebaseDatabase root = FirebaseDatabase.getInstance();
     DatabaseReference players = root.getReference("Players");
@@ -46,6 +51,7 @@ public class Deposit extends AppCompatActivity implements View.OnClickListener, 
     }
 
     private void initialize() {
+        currentPlayer = (Player) getIntent().getExtras().getSerializable("currentPlayer");
 
         rb10 = findViewById(R.id.rb10);
         rb25 = findViewById(R.id.rb25);
@@ -56,6 +62,16 @@ public class Deposit extends AppCompatActivity implements View.OnClickListener, 
         btnHome = findViewById(R.id.btnHome);
         btnPlayerSearch = findViewById(R.id.btnPlayerSearch);
         btnDashboard = findViewById(R.id.btnDashboard);
+        imgProfilePicture = findViewById(R.id.imgProfilePicture);
+        imgProfilePicture.setOnClickListener(this);
+        tvUsername = findViewById(R.id.tvUsername);
+        tvBalance = findViewById(R.id.tvBalance);
+        tvUsername.setText(currentPlayer.getUsername());
+        tvBalance.setText(String.valueOf(currentPlayer.getBalance()));
+        if (currentPlayer.getProfilePicture() != null)
+        {
+            Picasso.with(this).load(currentPlayer.getProfilePicture()).into(imgProfilePicture);
+        }
 
 
         btnDeposit.setOnClickListener(this);
@@ -68,7 +84,6 @@ public class Deposit extends AppCompatActivity implements View.OnClickListener, 
 
         edAmount.addTextChangedListener(this);
 
-        currentPlayer = (Player) getIntent().getExtras().getSerializable("currentPlayer");
     }
 
     @Override

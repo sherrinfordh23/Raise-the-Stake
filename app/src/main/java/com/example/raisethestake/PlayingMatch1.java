@@ -13,6 +13,7 @@ import android.provider.ContactsContract;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageButton;
+import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -22,6 +23,7 @@ import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
+import com.squareup.picasso.Picasso;
 
 import model.Match;
 import model.Player;
@@ -35,7 +37,8 @@ public class PlayingMatch1 extends AppCompatActivity implements View.OnClickList
     Player currentPlayer;
     ImageButton btnHome, btnPlayerSearch, btnDashboard;
 
-    TextView tvName;
+    TextView tvUsername, tvBalance;
+    ImageView imgProfilePicture;
 
 
     FirebaseDatabase root = FirebaseDatabase.getInstance();
@@ -68,8 +71,15 @@ public class PlayingMatch1 extends AppCompatActivity implements View.OnClickList
         btnPlayerSearch.setOnClickListener(this);
         btnDashboard.setOnClickListener(this);
 
-        tvName = findViewById(R.id.tvName);
-        tvName.setText(currentPlayer.getUsername());
+        tvUsername = findViewById(R.id.tvUsername);
+        tvUsername.setText(currentPlayer.getUsername());
+        tvBalance = findViewById(R.id.tvBalance);
+        tvBalance.setText(String.valueOf(currentPlayer.getBalance()));
+        imgProfilePicture = findViewById(R.id.imgProfilePicture);
+        if (currentPlayer.getProfilePicture() != null)
+        {
+            Picasso.with(this).load(currentPlayer.getProfilePicture()).into(imgProfilePicture);
+        }
 
 
 
