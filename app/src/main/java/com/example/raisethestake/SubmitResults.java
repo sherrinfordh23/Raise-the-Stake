@@ -2,13 +2,17 @@ package com.example.raisethestake;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.app.Dialog;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
+import android.view.Window;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
@@ -100,6 +104,40 @@ public class SubmitResults extends AppCompatActivity implements View.OnClickList
 
     private void submitResult(View view)
     {
-        // Create Dialogue with two fields to enter score and btnSubmit
+        final Dialog dialog = new Dialog(SubmitResults.this);
+
+        dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
+
+        dialog.setCancelable(true);
+
+        dialog.setContentView(R.layout.layout_submitresult);
+
+
+        final EditText edPlayer1Score, edPlayer2Score;
+        edPlayer1Score = findViewById(R.id.edPlayer1Score);
+        edPlayer2Score = findViewById(R.id.edPLayer2Score);
+        Button btnSubmit = findViewById(R.id.btnSubmit);
+
+        btnSubmit.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view)
+            {
+                int player1Score = Integer.valueOf(edPlayer1Score.getText().toString());
+                int player2Score = Integer.valueOf(edPlayer1Score.getText().toString());
+                String playerWon = "";
+
+                if (player1Score > player2Score)
+                    playerWon = currentMatch.getPlayer1();
+                else if (player2Score > player1Score)
+                    playerWon = currentMatch.getPlayer2();
+                else
+                    Toast.makeText(SubmitResults.this, "Invalid Results", Toast.LENGTH_LONG).show();
+
+                currentMatch.setPlayerWon(playerWon);
+            }
+        });
+
+        dialog.show();
     }
+
 }

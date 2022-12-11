@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:gravity="center"
+    android:layout_marginRight="20dp"
+    android:layout_marginLeft="20dp"
+    >
+
+    <TextView
+        android:id="@+id/tvTitle"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Submit Scores"
+        android:textSize="30sp"
+        android:textColor="@color/black"
+        android:layout_marginTop="20dp"
+        />
+
+    <EditText
+        android:layout_marginTop="20dp"
+            android:id="@+id/edPlayer1Score"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:ems="10"
+            android:hint="Player 1's Score..."
+            android:inputType="textPersonName"
+            android:minHeight="48dp"
+            />
+
+        <EditText
+            android:id="@+id/edPLayer2Score"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:ems="10"
+            android:hint="Player 2's Score..."
+            android:inputType="textPassword"
+            android:minHeight="48dp" />
+
+    <Button
+        android:id="@+id/btnSubmit"
+        android:layout_marginTop="15dp"
+        android:layout_width="150dp"
+        android:layout_height="60dp"
+        android:text="Submit"
+        android:layout_gravity="right"
+        android:backgroundTint="#c1e6c6"
+        android:textColor="@color/black"
+        android:textStyle="bold"
+        android:textAllCaps="false"
+        android:textSize="20sp"
+        />
+
+</LinearLayout>
