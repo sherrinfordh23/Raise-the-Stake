@@ -14,6 +14,7 @@ import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.RadioButton;
+import android.widget.RadioGroup;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -34,6 +35,7 @@ public class Deposit extends AppCompatActivity implements View.OnClickListener, 
     ImageButton btnHome, btnPlayerSearch, btnDashboard;
     ImageView imgProfilePicture;
     TextView tvUsername, tvBalance;
+    RadioGroup rgAmount, radioCreditDebit;
 
     FirebaseDatabase root = FirebaseDatabase.getInstance();
     DatabaseReference players = root.getReference("Players");
@@ -53,6 +55,8 @@ public class Deposit extends AppCompatActivity implements View.OnClickListener, 
     private void initialize() {
         currentPlayer = (Player) getIntent().getExtras().getSerializable("currentPlayer");
 
+        rgAmount = findViewById(R.id.rgAmount);
+        radioCreditDebit = findViewById(R.id.radioCreditDebit);
         rb10 = findViewById(R.id.rb10);
         rb25 = findViewById(R.id.rb25);
         rb50 = findViewById(R.id.rb50);
@@ -73,11 +77,7 @@ public class Deposit extends AppCompatActivity implements View.OnClickListener, 
             Picasso.with(this).load(currentPlayer.getProfilePicture()).into(imgProfilePicture);
         }
 
-
         btnDeposit.setOnClickListener(this);
-        rb10.setOnClickListener(this);
-        rb25.setOnClickListener(this);
-        rb50.setOnClickListener(this);
         btnHome.setOnClickListener(this);
         btnPlayerSearch.setOnClickListener(this);
         btnDashboard.setOnClickListener(this);
@@ -95,21 +95,7 @@ public class Deposit extends AppCompatActivity implements View.OnClickListener, 
             case R.id.btnDeposit:
                 deposit();
                 break;
-            case R.id.rb10:
-                rb25.setChecked(false);
-                rb50.setChecked(false);
-                edAmount.setText(null);
-                break;
-            case R.id.rb25:
-                rb10.setChecked(false);
-                rb50.setChecked(false);
-                edAmount.setText(null);
-                break;
-            case R.id.rb50:
-                rb25.setChecked(false);
-                rb10.setChecked(false);
-                edAmount.setText(null);
-                break;
+
             case R.id.btnHome:
                 intent = new Intent(this, Home.class);
                 intent.putExtra("currentPlayer", currentPlayer);
@@ -147,9 +133,15 @@ public class Deposit extends AppCompatActivity implements View.OnClickListener, 
             catch (Exception e)
             {
                 Toast.makeText(this, "Please select or enter an amount", Toast.LENGTH_SHORT).show();
+                rgAmount.clearCheck();
+                radioCreditDebit.clearCheck();
+                edAmount.setText(null);
+
                 return;
             }
         }
+
+
 
         if (rb10.isChecked())
             amount = 10f;
@@ -161,17 +153,20 @@ public class Deposit extends AppCompatActivity implements View.OnClickListener, 
         if (!rbCreditDebit.isChecked())
         {
             Toast.makeText(this, "Please select a payment method", Toast.LENGTH_SHORT).show();
+            rgAmount.clearCheck();
+            radioCreditDebit.clearCheck();
+            edAmount.setText(null);
+
             return;
         }
 
+        Toast.makeText(this, "Successfully deposited $" + amount, Toast.LENGTH_SHORT).show();
         currentPlayer.setBalance(currentPlayer.getBalance() + amount);
-
+        tvBalance.setText(String.valueOf(currentPlayer.getBalance()));
         players.child(currentPlayer.getUsername()).setValue(currentPlayer);
 
-        rb10.setChecked(false);
-        rb25.setChecked(false);
-        rb50.setChecked(false);
-        rbCreditDebit.setChecked(false);
+        rgAmount.clearCheck();
+        radioCreditDebit.clearCheck();
         edAmount.setText(null);
 
 
@@ -186,9 +181,11 @@ public class Deposit extends AppCompatActivity implements View.OnClickListener, 
 
     @Override
     public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
-        rb10.setChecked(false);
-        rb25.setChecked(false);
-        rb50.setChecked(false);
+
+        if (rb10.isChecked() || rb25.isChecked() || rb50.isChecked())
+        {
+            rgAmount.clearCheck();
+        }
     }
 
     @Override

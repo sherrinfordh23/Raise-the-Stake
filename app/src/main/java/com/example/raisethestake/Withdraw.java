@@ -11,6 +11,7 @@ import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.RadioButton;
+import android.widget.RadioGroup;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -29,6 +30,7 @@ public class Withdraw extends AppCompatActivity implements View.OnClickListener 
 
     EditText edAmount;
     RadioButton rbCreditDebit, rbPaypal;
+    RadioGroup radioPaymentMethod;
     Button btnWithdraw;
     ImageButton btnHome, btnPlayerSearch, btnDashboard;
     TextView tvUsername, tvBalance;
@@ -51,6 +53,7 @@ public class Withdraw extends AppCompatActivity implements View.OnClickListener 
     private void initialize() {
 
         currentPlayer = (Player) getIntent().getExtras().getSerializable("currentPlayer");
+        radioPaymentMethod = findViewById(R.id.radioPaymentMethod);
         edAmount = findViewById(R.id.edAmount);
         rbCreditDebit = findViewById((R.id.rbCreditDebit));
         rbPaypal = findViewById(R.id.rbPaypal);
@@ -84,12 +87,6 @@ public class Withdraw extends AppCompatActivity implements View.OnClickListener 
         Intent intent;
         switch (view.getId())
         {
-            case R.id.rbCreditDebit:
-                rbPaypal.setChecked(false);
-                break;
-            case R.id.rbPaypal:
-                rbCreditDebit.setChecked(false);
-                break;
             case R.id.btnWithdraw:
                 withdraw();
                 break;
@@ -127,22 +124,35 @@ public class Withdraw extends AppCompatActivity implements View.OnClickListener 
         }
         catch (Exception e)
         {
-            Toast.makeText(this, "Please specify an amount", Toast.LENGTH_SHORT).show();
+            Toast.makeText(this, "Please specify an amount", Toast.LENGTH_LONG).show();
+            radioPaymentMethod.clearCheck();
+            edAmount.setText(null);
             return;
         }
 
         if (!rbCreditDebit.isChecked() && !rbPaypal.isChecked())
         {
-            Toast.makeText(this, "Please select a payment method", Toast.LENGTH_SHORT).show();
+            Toast.makeText(this, "Please select a payment method", Toast.LENGTH_LONG).show();
+            radioPaymentMethod.clearCheck();
+            edAmount.setText(null);
+            return;
+        }
+
+        if (amount > currentPlayer.getBalance())
+        {
+            Toast.makeText(this, "Are you trying to rob us?", Toast.LENGTH_LONG).show();
+            radioPaymentMethod.clearCheck();
+            edAmount.setText(null);
             return;
         }
 
 
         currentPlayer.setBalance(currentPlayer.getBalance() - amount);
         players.child(currentPlayer.getUsername()).setValue(currentPlayer);
+        Toast.makeText(this, "Successfully withdrew $" + amount, Toast.LENGTH_SHORT).show();
+        tvBalance.setText(String.valueOf(currentPlayer.getBalance()));
 
-        rbPaypal.setChecked(false);
-        rbCreditDebit.setChecked(false);
+        radioPaymentMethod.clearCheck();
         edAmount.setText(null);
 
 

@@ -111,7 +111,7 @@
             android:padding="5dp">
 
             <RadioGroup
-                android:id="@+id/radio10"
+                android:id="@+id/rgAmount"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content" >
 
@@ -123,23 +123,6 @@
                     android:textSize="25sp"
                     android:textStyle="bold"
                     android:text="$10.00" />
-            </RadioGroup>
-
-        </LinearLayout>
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginBottom="10dp"
-            android:background="#b7edc5"
-            android:gravity="center"
-            android:orientation="horizontal"
-            android:padding="5dp">
-
-            <RadioGroup
-                android:id="@+id/radio25"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content" >
 
                 <RadioButton
                     android:id="@+id/rb25"
@@ -149,23 +132,6 @@
                     android:textSize="25sp"
                     android:textStyle="bold"
                     android:text="$25.00" />
-            </RadioGroup>
-
-        </LinearLayout>
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginBottom="10dp"
-            android:background="#b7edc5"
-            android:gravity="center"
-            android:orientation="horizontal"
-            android:padding="5dp">
-
-            <RadioGroup
-                android:id="@+id/radio50"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content" >
 
                 <RadioButton
                     android:id="@+id/rb50"
@@ -177,8 +143,8 @@
                     android:text="$50.00" />
             </RadioGroup>
 
-
         </LinearLayout>
+
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -271,7 +237,7 @@
             android:layout_height="50dp"
             android:layout_gravity="center"
             android:backgroundTint="#10f00c"
-            android:text="Confirm Deposite"
+            android:text="Confirm Deposit"
             android:textAllCaps="false"
             android:textColor="@color/black"
             android:textSize="20sp"
