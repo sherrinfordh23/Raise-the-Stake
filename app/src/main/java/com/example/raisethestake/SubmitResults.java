@@ -41,6 +41,7 @@ public class SubmitResults extends AppCompatActivity implements View.OnClickList
     FirebaseDatabase root = FirebaseDatabase.getInstance();
     DatabaseReference matches = root.getReference("Matches");
     DatabaseReference players = root.getReference("Players");
+    DatabaseReference matchResults = root.getReference("MatchResults");
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -165,13 +166,9 @@ public class SubmitResults extends AppCompatActivity implements View.OnClickList
     private void submitResult(View view)
     {
         final Dialog dialog = new Dialog(SubmitResults.this);
-
         dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
-
         dialog.setCancelable(true);
-
         dialog.setContentView(R.layout.layout_submitresult);
-
 
         final EditText edPlayer1Score, edPlayer2Score;
         edPlayer1Score = dialog.findViewById(R.id.edPlayer1Score);
@@ -193,6 +190,13 @@ public class SubmitResults extends AppCompatActivity implements View.OnClickList
                 else
                     Toast.makeText(SubmitResults.this, "Invalid Results", Toast.LENGTH_LONG).show();
 
+<<<<<<< HEAD
+                if(currentMatch.getPlayer1().equals(currentPlayer.getUsername()))
+                {
+                    matchResults.child(currentMatch.getUuid()).setValue(playerWon);
+                }
+
+=======
                 if (currentMatch.getPlayer1().equals(currentPlayer.getUsername()))
                 {
                     currentMatch.setPlayerWon1(playerWon);
@@ -204,6 +208,7 @@ public class SubmitResults extends AppCompatActivity implements View.OnClickList
 
                 matches.child(currentMatch.getUuid()).setValue(currentMatch);
 
+>>>>>>> 09813a6fdcab736df2ca085b924beaafb759d46c
             }
         });
 
