@@ -116,17 +116,22 @@ public class PlayingMatch1 extends AppCompatActivity implements View.OnClickList
         matches.child(currentMatch.getUuid()).addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
-                Match match = snapshot.getValue(Match.class);
-                if (match.isPlayer1Ready() == true && match.isPlayer1Ready())
+
+                if(snapshot.exists())
                 {
-                    Intent intent = new Intent(PlayingMatch1.this, PlayingMatch2.class);
-                    intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK);
-                    intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-                    intent.putExtra("currentPlayer", currentPlayer);
-                    intent.putExtra("currentMatch", currentMatch);
-                    finish();
-                    startActivity(intent);
+                    Match match = snapshot.getValue(Match.class);
+                    if (match.isPlayer1Ready() == true && match.isPlayer2Ready())
+                    {
+                        Intent intent = new Intent(PlayingMatch1.this, PlayingMatch2.class);
+                        intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK);
+                        intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                        intent.putExtra("currentPlayer", currentPlayer);
+                        intent.putExtra("currentMatch", currentMatch);
+                        finish();
+                        startActivity(intent);
+                    }
                 }
+
             }
 
             @Override
