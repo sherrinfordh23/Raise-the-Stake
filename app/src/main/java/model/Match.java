@@ -17,6 +17,8 @@ public class Match implements Serializable {
     private String playerWon;
     private boolean player1Ready;
     private boolean player2Ready;
+    private String playerWon1;
+    private String playerWon2;
 
     public Match(String game, String gameMode, String device,
                  float moneyDeposited, String player1, String player2, String playerWon) {
@@ -130,6 +132,22 @@ public class Match implements Serializable {
 
     public void setPlayer2Ready(boolean player2Ready) {
         this.player2Ready = player2Ready;
+    }
+
+    public String getPlayerWon1() {
+        return playerWon1;
+    }
+
+    public void setPlayerWon1(String playerWon1) {
+        this.playerWon1 = playerWon1;
+    }
+
+    public String getPlayerWon2() {
+        return playerWon2;
+    }
+
+    public void setPlayerWon2(String playerWon2) {
+        this.playerWon2 = playerWon2;
     }
 
     @Override

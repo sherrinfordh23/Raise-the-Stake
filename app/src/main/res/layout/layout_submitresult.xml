@@ -26,7 +26,6 @@
             android:layout_height="wrap_content"
             android:ems="10"
             android:hint="Player 1's Score..."
-            android:inputType="textPersonName"
             android:minHeight="48dp"
             />
 
@@ -36,7 +35,6 @@
             android:layout_height="wrap_content"
             android:ems="10"
             android:hint="Player 2's Score..."
-            android:inputType="textPassword"
             android:minHeight="48dp" />
 
     <Button

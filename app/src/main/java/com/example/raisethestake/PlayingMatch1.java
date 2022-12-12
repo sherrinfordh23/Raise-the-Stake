@@ -113,6 +113,28 @@ public class PlayingMatch1 extends AppCompatActivity implements View.OnClickList
             }
         });
 
+        matches.child(currentMatch.getUuid()).addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                Match match = snapshot.getValue(Match.class);
+                if (match.isPlayer1Ready() == true && match.isPlayer1Ready())
+                {
+                    Intent intent = new Intent(PlayingMatch1.this, PlayingMatch2.class);
+                    intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK);
+                    intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                    intent.putExtra("currentPlayer", currentPlayer);
+                    intent.putExtra("currentMatch", currentMatch);
+                    finish();
+                    startActivity(intent);
+                }
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+
+            }
+        });
+
 
 
         playersSearching.addChildEventListener(new ChildEventListener() {
@@ -252,7 +274,6 @@ public class PlayingMatch1 extends AppCompatActivity implements View.OnClickList
         }
         else if(currentMatch.getPlayer2().equals(currentPlayer.getUsername()))
             currentMatch.setPlayer2Ready(true);
-
 
 
         matches.child(currentMatch.getUuid()).setValue(currentMatch);
