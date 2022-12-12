@@ -37,7 +37,7 @@ public class SubmitResults extends AppCompatActivity implements View.OnClickList
 
     Button btnSubmitResult;
     ImageButton btnHome, btnPlayerSearch, btnDashboard;
-    TextView tvUsername, tvBalance, tvPlayer1, tvPlayer2;
+    TextView tvUsername, tvBalance, tvPlayer1, tvPlayer2, tvMatchOpponent;
     ImageView imgProfilePicture;
 
     Match currentMatch;
@@ -60,7 +60,13 @@ public class SubmitResults extends AppCompatActivity implements View.OnClickList
     {
         currentPlayer = (Player) getIntent().getExtras().getSerializable("currentPlayer");
         currentMatch = (Match) getIntent().getExtras().getSerializable("currentMatch");
-
+;
+        tvMatchOpponent = findViewById(R.id.tvMatchOpponent);
+        tvMatchOpponent.setText("Match vs. ");
+        if (currentMatch.getPlayer1().equals(currentPlayer.getUsername()))
+            tvMatchOpponent.append(currentMatch.getPlayer2());
+        else
+            tvMatchOpponent.append(currentMatch.getPlayer1());
         btnHome = findViewById(R.id.btnHome);
         btnPlayerSearch = findViewById(R.id.btnPlayerSearch);
         btnDashboard = findViewById(R.id.btnDashboard);
@@ -115,6 +121,7 @@ public class SubmitResults extends AppCompatActivity implements View.OnClickList
 
                     }
                     currentPlayer.setMatchOrTournamentId(null);
+                    currentMatch.setUuid(null);
                     players.child(currentPlayer.getUsername()).setValue(currentPlayer);
 
                     Intent intent = new Intent(SubmitResults.this, Home.class);

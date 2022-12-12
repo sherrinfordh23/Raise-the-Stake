@@ -167,11 +167,17 @@ public class FindMatch extends AppCompatActivity implements View.OnClickListener
                 Float amount = Float.valueOf(edAmount.getText().toString());
                 String player1 = currentPlayer.getUsername();
 
+
+                newMatchId = UUID.randomUUID().toString();
                 Match newMatch = new Match(newMatchId, game, gameMode, device, amount, player1);
                 currentPlayer.setMatchOrTournamentId(newMatch.getUuid());
 
                 playersSearching.child(newMatchId).setValue(newMatch);
                 players.child(currentPlayer.getUsername()).setValue(currentPlayer);
+
+                Toast.makeText(this, "player: " + currentPlayer.getMatchOrTournamentId(), Toast.LENGTH_LONG).show();
+                Toast.makeText(this, "new match: " + newMatch.getUuid(), Toast.LENGTH_LONG).show();
+
 
                 Intent intent = new Intent(this, Lobby.class);
                 intent.putExtra("currentPlayer", currentPlayer);

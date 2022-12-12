@@ -24,7 +24,7 @@ public class PlayingMatch2 extends AppCompatActivity implements View.OnClickList
     Match currentMatch;
     Player currentPlayer;
     ImageButton btnHome, btnPlayerSearch, btnDashboard;
-    TextView tvUsername, tvBalance, tvPlayer1, tvPlayer2;
+    TextView tvUsername, tvBalance, tvPlayer1, tvPlayer2, tvMatchOpponent;
     ImageView imgProfilePicture;
 
     FirebaseDatabase root = FirebaseDatabase.getInstance();
@@ -43,6 +43,13 @@ public class PlayingMatch2 extends AppCompatActivity implements View.OnClickList
     {
         currentPlayer = (Player) getIntent().getExtras().getSerializable("currentPlayer");
         currentMatch = (Match) getIntent().getExtras().getSerializable("currentMatch");
+
+        tvMatchOpponent = findViewById(R.id.tvMatchOpponent);
+        tvMatchOpponent.setText("Match vs. ");
+        if (currentMatch.getPlayer1().equals(currentPlayer.getUsername()))
+            tvMatchOpponent.append(currentMatch.getPlayer2());
+        else
+            tvMatchOpponent.append(currentMatch.getPlayer1());
 
         btnMatchStarted = findViewById(R.id.buttonMatchStart);
         btnMatchStarted.setOnClickListener(this);
