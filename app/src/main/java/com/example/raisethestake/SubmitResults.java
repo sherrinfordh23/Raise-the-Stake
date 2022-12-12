@@ -121,7 +121,7 @@ public class SubmitResults extends AppCompatActivity implements View.OnClickList
 
                     }
                     currentPlayer.setMatchOrTournamentId(null);
-                    currentMatch.setUuid(null);
+                    matches.child(currentMatch.getUuid()).removeValue();
                     players.child(currentPlayer.getUsername()).setValue(currentPlayer);
 
                     Intent intent = new Intent(SubmitResults.this, Home.class);
