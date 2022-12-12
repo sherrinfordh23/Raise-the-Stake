@@ -11,6 +11,7 @@ import android.text.Layout;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.Window;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageButton;
@@ -23,7 +24,11 @@ import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 import com.squareup.picasso.Picasso;
+
+import java.util.ArrayList;
+import java.util.Iterator;
 
 import model.Match;
 import model.Player;
@@ -77,44 +82,48 @@ public class SubmitResults extends AppCompatActivity implements View.OnClickList
         btnSubmitResult.setOnClickListener(this);
 
 
-        matches.child(currentMatch.getUuid()).addChildEventListener(new ChildEventListener() {
+        matchResults.child(currentMatch.getUuid()).addValueEventListener(new ValueEventListener() {
             @Override
-            public void onChildAdded(@NonNull DataSnapshot snapshot, @Nullable String previousChildName) {
-
-            }
-
-            @Override
-            public void onChildChanged(@NonNull DataSnapshot snapshot, @Nullable String previousChildName) {
-                /*
-                if (currentMatch.getPlayer1().equals(currentPlayer.getUsername()))
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                ArrayList<String> listOfPlayersWon = new ArrayList<String>();
+                for (DataSnapshot ds : snapshot.getChildren())
                 {
-                    String playerWon1 = snapshot.getValue(String.class);
-                    if (currentMatch.getPlayerWon2() != null)
-                    {
-                        if (!playerWon1.equals(currentMatch.getPlayerWon2()))
-                            Toast.makeText(SubmitResults.this, "Results from the 2 players are not the same", Toast.LENGTH_LONG).show();
-                    }
-                }
-                else
-                {
-                    String playerWon2 = snapshot.getValue(String.class);
-                    if (currentMatch.getPlayerWon1() != null)
-                    {
-                        if (!playerWon2.equals(currentMatch.getPlayerWon1()))
-                            Toast.makeText(SubmitResults.this, "Results from the 2 players are not the same", Toast.LENGTH_LONG).show();
-                    }
+                    listOfPlayersWon.add(ds.getValue(String.class));
                 }
 
-*/
-            }
 
-            @Override
-            public void onChildRemoved(@NonNull DataSnapshot snapshot) {
+                if (listOfPlayersWon.size() == 2)
+                {
+                    if (listOfPlayersWon.get(0).equals(listOfPlayersWon.get(1)))
+                    {
+                        if (listOfPlayersWon.get(0).equals(currentPlayer.getUsername()))
+                            currentPlayer.setBalance(currentPlayer.getBalance() + currentMatch.getMoneyDeposited());
+                        else
+                            currentPlayer.setBalance(currentPlayer.getBalance() - currentMatch.getMoneyDeposited());
 
-            }
+                        try{
+                            matchResults.child(currentMatch.getUuid()).removeValue();
+                        }
+                        catch (Exception e)
+                        {
 
-            @Override
-            public void onChildMoved(@NonNull DataSnapshot snapshot, @Nullable String previousChildName) {
+                        }
+
+                    }
+                    else {
+                        Toast.makeText(SubmitResults.this, "Results do not match, awaiting for admin evaluation", Toast.LENGTH_LONG).show();
+
+                    }
+                    currentPlayer.setMatchOrTournamentId(null);
+                    players.child(currentPlayer.getUsername()).setValue(currentPlayer);
+
+                    Intent intent = new Intent(SubmitResults.this, Home.class);
+                    intent.putExtra("currentPlayer", currentPlayer);
+                    intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK);
+                    intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                    finish();
+                    startActivity(intent);
+                }
 
             }
 
@@ -123,6 +132,7 @@ public class SubmitResults extends AppCompatActivity implements View.OnClickList
 
             }
         });
+
 
     }
 
@@ -190,12 +200,9 @@ public class SubmitResults extends AppCompatActivity implements View.OnClickList
                 else
                     Toast.makeText(SubmitResults.this, "Invalid Results", Toast.LENGTH_LONG).show();
 
-                if(currentMatch.getPlayer1().equals(currentPlayer.getUsername()))
-                {
-                    matchResults.child(currentMatch.getUuid()).setValue(playerWon);
-                }
+                matchResults.child(currentMatch.getUuid()).child(currentPlayer.getUsername()).setValue(playerWon);
 
-                matches.child(currentMatch.getUuid()).setValue(currentMatch);
+                dialog.dismiss();
 
             }
         });

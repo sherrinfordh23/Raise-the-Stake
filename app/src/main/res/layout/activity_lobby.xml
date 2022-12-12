@@ -82,9 +82,9 @@
             android:id="@+id/tvGame"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:text="NBA 2K23"
+            android:text="Lobby"
             android:textSize="30sp"
-            android:textColor="@color/black"
+            android:textColor="#CD225C"
             android:layout_marginLeft="50dp"/>
     </LinearLayout>
 
@@ -176,7 +176,7 @@
             android:id="@+id/SearchForOpponent"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:textColor="@color/black"
+            android:textColor="#DA4111"
             android:textStyle="bold"
             android:textSize="25sp"
             android:text="Searching For Opponent"
