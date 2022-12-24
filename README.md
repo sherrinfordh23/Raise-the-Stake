@@ -1,6 +1,6 @@
 # Raise-the-Stake
 
-Description: A platform for competitive NBA2K players to play against other players with money on the line.
+Description: A platform for competitive NBA2K players to play against other players with money on the line. Earn money playing your favorite game.
 
 Link to simulation: https://drive.google.com/file/d/1ih3pCYeZBkylhtkJzSBGkmt_8KJpS2hy/view?usp=sharing
 
